@@ -553,7 +553,8 @@ public class ConcreteProductB extends AbstractProduct {
         return mobilePhone;
     }
 }
-</code></pre><h2 id="工厂方法模式-相对简单工厂模式只是工厂类发生了变化"><a href="#工厂方法模式-相对简单工厂模式只是工厂类发生了变化" class="headerlink" title="工厂方法模式:相对简单工厂模式只是工厂类发生了变化"></a>工厂方法模式:相对简单工厂模式只是工厂类发生了变化</h2><h3 id="UML图-1"><a href="#UML图-1" class="headerlink" title="UML图"></a>UML图</h3><p><img src="http://oa5ova13h.bkt.clouddn.com/multi_factory_classic.png" alt="工厂方法模式"></p>
+</code></pre><h2 id="工厂方法模式"><a href="#工厂方法模式" class="headerlink" title="工厂方法模式"></a>工厂方法模式</h2><p>相对简单工厂模式只是工厂类发生了变化</p>
+<h3 id="UML图-1"><a href="#UML图-1" class="headerlink" title="UML图"></a>UML图</h3><p><img src="http://oa5ova13h.bkt.clouddn.com/multi_factory_classic.png" alt="工厂方法模式"></p>
 <h3 id="典型代码-1"><a href="#典型代码-1" class="headerlink" title="典型代码"></a>典型代码</h3><p>典型的工厂类代码如下所示：</p>
 <pre><code>public class Factory {
     public AbstractProduct produceProductA() {
@@ -649,7 +650,7 @@ public class PensiCola extends Cola {
         return this.getClass().getSimpleName() + &quot; [gender=&quot; + color + &quot;]&quot;;
     }
 }
-</code></pre><p>具体产品类-CocaCola和PensiCola</p>
+</code></pre><p>具体产品类-Man和Woman</p>
 <pre><code>public class Man extends Human {
     public Man(Color gender) {
         super(gender);
@@ -670,7 +671,7 @@ public class Woman extends Human {
         return new Woman(color);
     }
 }
-</code></pre><p>客户端类-MultiFactoryApp</p>
+</code></pre><p>客户端类-StaticApp</p>
 <pre><code>public class StaticApp {
     public static void main(String[] args) {
         Human produceMan = GodFactory.produceMan(Color.WHITE);
@@ -692,7 +693,7 @@ note right of Factory : public AbstractProduct produce(String type)     {\nAbstr
 AbstractProduct&lt;|-down- ConcreteProductB
 AbstractProduct&lt;|-down- ConcreteProductA
 Factory..&gt;AbstractProduct
-</code></pre><h3 id="工厂方法模式"><a href="#工厂方法模式" class="headerlink" title="工厂方法模式"></a>工厂方法模式</h3><pre><code>//title 工厂方法模式
+</code></pre><h3 id="工厂方法模式-1"><a href="#工厂方法模式-1" class="headerlink" title="工厂方法模式"></a>工厂方法模式</h3><pre><code>//title 工厂方法模式
 class AbstractProduct
 class ConcreteProductA
 class ConcreteProductB

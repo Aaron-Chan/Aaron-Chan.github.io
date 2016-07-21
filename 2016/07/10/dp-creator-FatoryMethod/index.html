@@ -98,7 +98,7 @@
 <meta property="og:image" content="http://oa5ova13h.bkt.clouddn.com/multi_factory_example.png">
 <meta property="og:image" content="http://oa5ova13h.bkt.clouddn.com/static_factory_classic.png">
 <meta property="og:image" content="http://oa5ova13h.bkt.clouddn.com/static_factory_example.png">
-<meta property="og:updated_time" content="2016-07-21T15:18:25.145Z">
+<meta property="og:updated_time" content="2016-07-21T15:20:54.427Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="设计模式-创建型-工厂方法(Factory Mehtod)">
 <meta name="twitter:description" content="使用工厂方法原因&amp;nbsp;&amp;nbsp;在Java中，新建对象是通过修饰符new + &amp;quot;className&amp;quot;来实现的。但是这样存在一个问题，使用new实例化一个具体类是使用了 实现，而非接口。当加入新的具体类的时候，就必须修改代码，违反了 开闭原则。我们将新建具体类的代码封装到一个类里面，这个类就是工厂(fatory)。
@@ -391,7 +391,8 @@ public class ConcreteProductB extends AbstractProduct {
         return mobilePhone;
     }
 }
-</code></pre><h2 id="工厂方法模式-相对简单工厂模式只是工厂类发生了变化"><a href="#工厂方法模式-相对简单工厂模式只是工厂类发生了变化" class="headerlink" title="工厂方法模式:相对简单工厂模式只是工厂类发生了变化"></a>工厂方法模式:相对简单工厂模式只是工厂类发生了变化</h2><h3 id="UML图-1"><a href="#UML图-1" class="headerlink" title="UML图"></a>UML图</h3><p><img src="http://oa5ova13h.bkt.clouddn.com/multi_factory_classic.png" alt="工厂方法模式"></p>
+</code></pre><h2 id="工厂方法模式"><a href="#工厂方法模式" class="headerlink" title="工厂方法模式"></a>工厂方法模式</h2><p>相对简单工厂模式只是工厂类发生了变化</p>
+<h3 id="UML图-1"><a href="#UML图-1" class="headerlink" title="UML图"></a>UML图</h3><p><img src="http://oa5ova13h.bkt.clouddn.com/multi_factory_classic.png" alt="工厂方法模式"></p>
 <h3 id="典型代码-1"><a href="#典型代码-1" class="headerlink" title="典型代码"></a>典型代码</h3><p>典型的工厂类代码如下所示：</p>
 <pre><code>public class Factory {
     public AbstractProduct produceProductA() {
@@ -487,7 +488,7 @@ public class PensiCola extends Cola {
         return this.getClass().getSimpleName() + &quot; [gender=&quot; + color + &quot;]&quot;;
     }
 }
-</code></pre><p>具体产品类-CocaCola和PensiCola</p>
+</code></pre><p>具体产品类-Man和Woman</p>
 <pre><code>public class Man extends Human {
     public Man(Color gender) {
         super(gender);
@@ -508,7 +509,7 @@ public class Woman extends Human {
         return new Woman(color);
     }
 }
-</code></pre><p>客户端类-MultiFactoryApp</p>
+</code></pre><p>客户端类-StaticApp</p>
 <pre><code>public class StaticApp {
     public static void main(String[] args) {
         Human produceMan = GodFactory.produceMan(Color.WHITE);
@@ -530,7 +531,7 @@ note right of Factory : public AbstractProduct produce(String type)     {\nAbstr
 AbstractProduct&lt;|-down- ConcreteProductB
 AbstractProduct&lt;|-down- ConcreteProductA
 Factory..&gt;AbstractProduct
-</code></pre><h3 id="工厂方法模式"><a href="#工厂方法模式" class="headerlink" title="工厂方法模式"></a>工厂方法模式</h3><pre><code>//title 工厂方法模式
+</code></pre><h3 id="工厂方法模式-1"><a href="#工厂方法模式-1" class="headerlink" title="工厂方法模式"></a>工厂方法模式</h3><pre><code>//title 工厂方法模式
 class AbstractProduct
 class ConcreteProductA
 class ConcreteProductB
@@ -728,7 +729,7 @@ Factory..&gt;AbstractProduct
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#使用工厂方法原因"><span class="nav-number">1.</span> <span class="nav-text">使用工厂方法原因</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#工厂方法的分类"><span class="nav-number">2.</span> <span class="nav-text">工厂方法的分类</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#简单工厂模式"><span class="nav-number">2.1.</span> <span class="nav-text">简单工厂模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#概述"><span class="nav-number">2.1.1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#UML图"><span class="nav-number">2.1.2.</span> <span class="nav-text">UML图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#典型代码"><span class="nav-number">2.1.3.</span> <span class="nav-text">典型代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#示例UML图"><span class="nav-number">2.1.4.</span> <span class="nav-text">示例UML图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#示例代码"><span class="nav-number">2.1.5.</span> <span class="nav-text">示例代码</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#工厂方法模式-相对简单工厂模式只是工厂类发生了变化"><span class="nav-number">2.2.</span> <span class="nav-text">工厂方法模式:相对简单工厂模式只是工厂类发生了变化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#UML图-1"><span class="nav-number">2.2.1.</span> <span class="nav-text">UML图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#典型代码-1"><span class="nav-number">2.2.2.</span> <span class="nav-text">典型代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#示例UML图-1"><span class="nav-number">2.2.3.</span> <span class="nav-text">示例UML图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#示例代码-1"><span class="nav-number">2.2.4.</span> <span class="nav-text">示例代码</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#静态工厂模式"><span class="nav-number">2.3.</span> <span class="nav-text">静态工厂模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#UML图-2"><span class="nav-number">2.3.1.</span> <span class="nav-text">UML图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#典型代码-2"><span class="nav-number">2.3.2.</span> <span class="nav-text">典型代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#示例UML图-2"><span class="nav-number">2.3.3.</span> <span class="nav-text">示例UML图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#示例代码-2"><span class="nav-number">2.3.4.</span> <span class="nav-text">示例代码:</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#附录"><span class="nav-number">3.</span> <span class="nav-text">附录</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#UML代码"><span class="nav-number">3.1.</span> <span class="nav-text">UML代码</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#简单工厂模式-1"><span class="nav-number">3.1.1.</span> <span class="nav-text">简单工厂模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#工厂方法模式"><span class="nav-number">3.1.2.</span> <span class="nav-text">工厂方法模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#静态工厂模式-1"><span class="nav-number">3.1.3.</span> <span class="nav-text">静态工厂模式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#代码github仓库地址"><span class="nav-number">3.2.</span> <span class="nav-text">代码github仓库地址</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#使用工厂方法原因"><span class="nav-number">1.</span> <span class="nav-text">使用工厂方法原因</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#工厂方法的分类"><span class="nav-number">2.</span> <span class="nav-text">工厂方法的分类</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#简单工厂模式"><span class="nav-number">2.1.</span> <span class="nav-text">简单工厂模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#概述"><span class="nav-number">2.1.1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#UML图"><span class="nav-number">2.1.2.</span> <span class="nav-text">UML图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#典型代码"><span class="nav-number">2.1.3.</span> <span class="nav-text">典型代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#示例UML图"><span class="nav-number">2.1.4.</span> <span class="nav-text">示例UML图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#示例代码"><span class="nav-number">2.1.5.</span> <span class="nav-text">示例代码</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#工厂方法模式"><span class="nav-number">2.2.</span> <span class="nav-text">工厂方法模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#UML图-1"><span class="nav-number">2.2.1.</span> <span class="nav-text">UML图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#典型代码-1"><span class="nav-number">2.2.2.</span> <span class="nav-text">典型代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#示例UML图-1"><span class="nav-number">2.2.3.</span> <span class="nav-text">示例UML图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#示例代码-1"><span class="nav-number">2.2.4.</span> <span class="nav-text">示例代码</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#静态工厂模式"><span class="nav-number">2.3.</span> <span class="nav-text">静态工厂模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#UML图-2"><span class="nav-number">2.3.1.</span> <span class="nav-text">UML图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#典型代码-2"><span class="nav-number">2.3.2.</span> <span class="nav-text">典型代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#示例UML图-2"><span class="nav-number">2.3.3.</span> <span class="nav-text">示例UML图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#示例代码-2"><span class="nav-number">2.3.4.</span> <span class="nav-text">示例代码:</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#附录"><span class="nav-number">3.</span> <span class="nav-text">附录</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#UML代码"><span class="nav-number">3.1.</span> <span class="nav-text">UML代码</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#简单工厂模式-1"><span class="nav-number">3.1.1.</span> <span class="nav-text">简单工厂模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#工厂方法模式-1"><span class="nav-number">3.1.2.</span> <span class="nav-text">工厂方法模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#静态工厂模式-1"><span class="nav-number">3.1.3.</span> <span class="nav-text">静态工厂模式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#代码github仓库地址"><span class="nav-number">3.2.</span> <span class="nav-text">代码github仓库地址</span></a></li></ol></li></ol></div>
             
           </div>
         </section>
