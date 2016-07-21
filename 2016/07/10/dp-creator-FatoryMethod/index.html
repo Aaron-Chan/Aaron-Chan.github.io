@@ -1,0 +1,880 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="设计模式," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="使用工厂方法原因&amp;nbsp;&amp;nbsp;在Java中，新建对象是通过修饰符new + &amp;quot;className&amp;quot;来实现的。但是这样存在一个问题，使用new实例化一个具体类是使用了 实现，而非接口。当加入新的具体类的时候，就必须修改代码，违反了 开闭原则。我们将新建具体类的代码封装到一个类里面，这个类就是工厂(fatory)。
+工厂方法的分类&amp;nbsp;&amp;nbsp;工厂方法模式分为三">
+<meta property="og:type" content="article">
+<meta property="og:title" content="设计模式-创建型-工厂方法(Factory Mehtod)">
+<meta property="og:url" content="http://yoursite.com/2016/07/10/dp-creator-FatoryMethod/index.html">
+<meta property="og:site_name" content="AaronChan Blog">
+<meta property="og:description" content="使用工厂方法原因&amp;nbsp;&amp;nbsp;在Java中，新建对象是通过修饰符new + &amp;quot;className&amp;quot;来实现的。但是这样存在一个问题，使用new实例化一个具体类是使用了 实现，而非接口。当加入新的具体类的时候，就必须修改代码，违反了 开闭原则。我们将新建具体类的代码封装到一个类里面，这个类就是工厂(fatory)。
+工厂方法的分类&amp;nbsp;&amp;nbsp;工厂方法模式分为三">
+<meta property="og:image" content="http://oa5ova13h.bkt.clouddn.com/simple_factory_classic.png">
+<meta property="og:image" content="http://oa5ova13h.bkt.clouddn.com/simple_factory_example.png">
+<meta property="og:image" content="http://oa5ova13h.bkt.clouddn.com/multi_factory_classic.png">
+<meta property="og:image" content="http://oa5ova13h.bkt.clouddn.com/multi_factory_example.png">
+<meta property="og:image" content="http://oa5ova13h.bkt.clouddn.com/static_factory_classic.png">
+<meta property="og:image" content="http://oa5ova13h.bkt.clouddn.com/static_factory_example.png">
+<meta property="og:updated_time" content="2016-07-21T15:18:25.145Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="设计模式-创建型-工厂方法(Factory Mehtod)">
+<meta name="twitter:description" content="使用工厂方法原因&amp;nbsp;&amp;nbsp;在Java中，新建对象是通过修饰符new + &amp;quot;className&amp;quot;来实现的。但是这样存在一个问题，使用new实例化一个具体类是使用了 实现，而非接口。当加入新的具体类的时候，就必须修改代码，违反了 开闭原则。我们将新建具体类的代码封装到一个类里面，这个类就是工厂(fatory)。
+工厂方法的分类&amp;nbsp;&amp;nbsp;工厂方法模式分为三">
+<meta name="twitter:image" content="http://oa5ova13h.bkt.clouddn.com/simple_factory_classic.png">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2016/07/10/dp-creator-FatoryMethod/"/>
+
+  <title> 设计模式-创建型-工厂方法(Factory Mehtod) | AaronChan Blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?51f0c6f8829e2634ec8f9bfc8220f514";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">AaronChan Blog</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">陈晓城</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                设计模式-创建型-工厂方法(Factory Mehtod)
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-07-10T21:58:00+08:00" content="2016-07-10">
+              2016-07-10
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/技术/" itemprop="url" rel="index">
+                    <span itemprop="name">技术</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/07/10/dp-creator-FatoryMethod/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/10/dp-creator-FatoryMethod/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="使用工厂方法原因"><a href="#使用工厂方法原因" class="headerlink" title="使用工厂方法原因"></a>使用工厂方法原因</h1><p>&nbsp;&nbsp;在Java中，新建对象是通过修饰符<code>new + &quot;className&quot;</code>来实现的。但是这样存在一个问题，使用<code>new</code>实例化一个具体类是使用了 <strong><em>实现</em></strong>，而非接口。当加入新的具体类的时候，就必须修改代码，违反了 <strong><em>开闭原则</em></strong>。我们将新建具体类的代码封装到一个类里面，这个类就是工厂(fatory)。</p>
+<h1 id="工厂方法的分类"><a href="#工厂方法的分类" class="headerlink" title="工厂方法的分类"></a>工厂方法的分类</h1><p>&nbsp;&nbsp;工厂方法模式分为三种：简单工厂模式、工厂方法模式、静态工厂模式，其中用的最好的是<strong><em>静态工厂模式</em></strong></p>
+<h2 id="简单工厂模式"><a href="#简单工厂模式" class="headerlink" title="简单工厂模式"></a>简单工厂模式</h2><h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><p>&nbsp;&nbsp;定义一个工厂类，它可以根据参数的不同返回不同类的实例，被创建的实例通常都具有共同的父类。</p>
+<h3 id="UML图"><a href="#UML图" class="headerlink" title="UML图"></a>UML图</h3><p><img src="http://oa5ova13h.bkt.clouddn.com/simple_factory_classic.png" alt="简单工厂模式"></p>
+<h3 id="典型代码"><a href="#典型代码" class="headerlink" title="典型代码"></a>典型代码</h3><p>典型的抽象产品类代码如下所示：</p>
+<pre><code>public abstract class AbstractProduct {
+}
+</code></pre><p>典型的具体产品类代码如下所示：</p>
+<pre><code>public class ConcreteProductA extends AbstractProduct {
+}
+
+public class ConcreteProductB extends AbstractProduct {
+}
+</code></pre><p>典型的工厂类代码如下所示：</p>
+<pre><code>public class Factory {
+    public AbstractProduct produce(String type) {
+        AbstractProduct product = null;
+        if (&quot;1&quot;.equals(type)) {
+            product = new ConcreteProductA();
+        } else if (&quot;2&quot;.equals(type)) {
+            product = new ConcreteProductB();
+        }
+        return product;
+    }
+}
+</code></pre><p>典型的客户端类代码如下所示：</p>
+<pre><code>public class App {
+    public static void main(String[] args) {
+        AbstractProduct product;
+        Factory factory = new Factory();
+        product = factory.produce(&quot;A&quot;);
+        System.out.println(product instanceof ConcreteProductA);
+    }
+}
+</code></pre><h3 id="示例UML图"><a href="#示例UML图" class="headerlink" title="示例UML图"></a>示例UML图</h3><p><img src="http://oa5ova13h.bkt.clouddn.com/simple_factory_example.png" alt=""></p>
+<h3 id="示例代码"><a href="#示例代码" class="headerlink" title="示例代码"></a>示例代码</h3><p>抽象产品类-MobilePhone</p>
+<pre><code>public abstract class MobilePhone {
+    protected OS os;
+    public OS getOs() {
+        return os;
+    }
+    public void setOs(OS os) {
+        this.os = os;
+    }
+}
+</code></pre><p>具体产品类-AndroidPhone</p>
+<pre><code>public class AndroidPhone extends MobilePhone {
+    public AndroidPhone() {
+        this.os = OS.Android;
+    }
+}
+</code></pre><p>具体产品类-IOSPhone</p>
+<pre><code>public class IOSPhone extends MobilePhone {
+    public IOSPhone() {
+        this.os = OS.IOS;
+    }
+}
+</code></pre><p>工厂类-MobilePhoneFactory</p>
+<pre><code>public class MobilePhoneFactory {
+    public MobilePhone produce(String os) {
+        MobilePhone mobilePhone = null;
+        if (&quot;android&quot;.equalsIgnoreCase(os)) {
+            mobilePhone = new AndroidPhone();
+        } else if (&quot;ios&quot;.equalsIgnoreCase(os)) {
+            mobilePhone = new IOSPhone();
+        }
+        return mobilePhone;
+    }
+}
+</code></pre><h2 id="工厂方法模式-相对简单工厂模式只是工厂类发生了变化"><a href="#工厂方法模式-相对简单工厂模式只是工厂类发生了变化" class="headerlink" title="工厂方法模式:相对简单工厂模式只是工厂类发生了变化"></a>工厂方法模式:相对简单工厂模式只是工厂类发生了变化</h2><h3 id="UML图-1"><a href="#UML图-1" class="headerlink" title="UML图"></a>UML图</h3><p><img src="http://oa5ova13h.bkt.clouddn.com/multi_factory_classic.png" alt="工厂方法模式"></p>
+<h3 id="典型代码-1"><a href="#典型代码-1" class="headerlink" title="典型代码"></a>典型代码</h3><p>典型的工厂类代码如下所示：</p>
+<pre><code>public class Factory {
+    public AbstractProduct produceProductA() {
+        return new ConcreteProductA();
+    }
+
+    public AbstractProduct produceProductB() {
+        return new ConcreteProductB();
+    }
+}
+</code></pre><p>典型的客户端类代码如下所示：</p>
+<pre><code>public class App {
+    public static void main(String[] args) {
+        AbstractProduct product;
+        Factory factory = new Factory();
+        product = factory.produceProductA();
+        AbstractProduct product2 = factory.produceProductB();
+    }
+}
+</code></pre><h3 id="示例UML图-1"><a href="#示例UML图-1" class="headerlink" title="示例UML图"></a>示例UML图</h3><p><img src="http://oa5ova13h.bkt.clouddn.com/multi_factory_example.png" alt=""></p>
+<h3 id="示例代码-1"><a href="#示例代码-1" class="headerlink" title="示例代码"></a>示例代码</h3><p>抽象产品类-Cola</p>
+<pre><code>public abstract class Cola {
+    private Size brand;
+    public Cola(Size brand) {
+        super();
+        this.brand = brand;
+    }
+    @Override
+    public String toString() {
+        return this.getClass().getSimpleName() + &quot; [brand=&quot; + brand + &quot;]&quot;;
+    }
+}
+</code></pre><p>具体产品类-CocaCola和PensiCola</p>
+<pre><code>public class CocaCola extends Cola {
+    public CocaCola(Size os) {
+        super(os);
+    }
+}
+
+public class PensiCola extends Cola {
+    public PensiCola(Size brand) {
+        super(brand);
+    }
+}
+</code></pre><p>工厂类-ColaFactory</p>
+<pre><code>public class ColaFactory {
+    public Cola producePensiCola(Size size) {
+        return new CocaCola(size);
+    }
+    public Cola produceCocaCola(Size size) {
+        return new PensiCola(size);
+    }
+}
+</code></pre><p>客户端类-MultiFactoryApp</p>
+<pre><code>public class MultiFactoryApp {
+    public static void main(String[] args) {
+        ColaFactory factory = new ColaFactory();
+        Cola firstCola = factory.produceCocaCola(Size.BOTTLING);
+        System.out.println(firstCola);
+        Cola secondCola = factory.producePensiCola(Size.CANNED);
+        System.out.println(secondCola);
+    }
+}
+</code></pre><h2 id="静态工厂模式"><a href="#静态工厂模式" class="headerlink" title="静态工厂模式"></a>静态工厂模式</h2><h3 id="UML图-2"><a href="#UML图-2" class="headerlink" title="UML图"></a>UML图</h3><p><img src="http://oa5ova13h.bkt.clouddn.com/static_factory_classic.png" alt="静态工厂模式"></p>
+<h3 id="典型代码-2"><a href="#典型代码-2" class="headerlink" title="典型代码"></a>典型代码</h3><p>典型的工厂类代码如下所示：</p>
+<pre><code>public class Factory {
+    public static AbstractProduct produceProductA() {
+    return new ConcreteProductA();
+    }
+
+    public static AbstractProduct produceProductB() {
+        return new ConcreteProductB();
+    }
+}
+</code></pre><p>典型的客户端类代码如下所示：</p>
+<pre><code>public class App {
+    public static void main(String[] args) {
+    AbstractProduct product;
+    product = Factory.produceProductA();
+    AbstractProduct product2 = Factory.produceProductB();
+    }
+}
+</code></pre><h3 id="示例UML图-2"><a href="#示例UML图-2" class="headerlink" title="示例UML图"></a>示例UML图</h3><p><img src="http://oa5ova13h.bkt.clouddn.com/static_factory_example.png" alt=""></p>
+<h3 id="示例代码-2"><a href="#示例代码-2" class="headerlink" title="示例代码:"></a>示例代码:</h3><p>抽象产品类-Human</p>
+<pre><code>public abstract class Human {
+    private Color color;
+    public Human(Color gender) {
+        super();
+        this.color = gender;
+    }
+    @Override
+    public String toString() {
+        return this.getClass().getSimpleName() + &quot; [gender=&quot; + color + &quot;]&quot;;
+    }
+}
+</code></pre><p>具体产品类-CocaCola和PensiCola</p>
+<pre><code>public class Man extends Human {
+    public Man(Color gender) {
+        super(gender);
+    }
+}
+
+public class Woman extends Human {
+    public Woman(Color gender) {
+        super(gender);
+    }
+}
+</code></pre><p>工厂类-ColaFactory</p>
+<pre><code>public class GodFactory {
+    public static Human produceMan(Color color) {
+        return new Man(color);
+    }
+    public static Human produceWoman(Color color) {
+        return new Woman(color);
+    }
+}
+</code></pre><p>客户端类-MultiFactoryApp</p>
+<pre><code>public class StaticApp {
+    public static void main(String[] args) {
+        Human produceMan = GodFactory.produceMan(Color.WHITE);
+        System.out.println(produceMan);
+        Human produceWoman = GodFactory.produceWoman(Color.BLACK);
+        System.out.println(produceWoman);
+    }
+}
+</code></pre><h1 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h1><h2 id="UML代码"><a href="#UML代码" class="headerlink" title="UML代码"></a>UML代码</h2><h3 id="简单工厂模式-1"><a href="#简单工厂模式-1" class="headerlink" title="简单工厂模式"></a>简单工厂模式</h3><pre><code>//title 简单工厂模式
+class AbstractProduct
+class ConcreteProductA
+class ConcreteProductB
+class Factory{
+  +AbstractProduct produce(String type);
+
+
+}
+note right of Factory : public AbstractProduct produce(String type)     {\nAbstractProduct product = null;\nif (&quot;1&quot;.equals(type)) {\nproduct = new  ConcreteProductA();\n} else if (&quot;2&quot;.equals(type)) {\nproduct = new   ConcreteProductB();\n}\nreturn product;\n}
+AbstractProduct&lt;|-down- ConcreteProductB
+AbstractProduct&lt;|-down- ConcreteProductA
+Factory..&gt;AbstractProduct
+</code></pre><h3 id="工厂方法模式"><a href="#工厂方法模式" class="headerlink" title="工厂方法模式"></a>工厂方法模式</h3><pre><code>//title 工厂方法模式
+class AbstractProduct
+class ConcreteProductA
+class ConcreteProductB
+class Factory{
+  +public AbstractProduct produceProductA();
+  +public AbstractProduct produceProductB();
+
+
+}
+note right of Factory : public AbstractProduct produceProductB()     {\nreturn new ConcreteProductB();\n}\npublic AbstractProduct produceProductA()     {\nreturn new ConcreteProductA();\n}
+AbstractProduct&lt;|-down- ConcreteProductB
+AbstractProduct&lt;|-down- ConcreteProductA
+Factory..&gt;AbstractProduct
+</code></pre><h3 id="静态工厂模式-1"><a href="#静态工厂模式-1" class="headerlink" title="静态工厂模式"></a>静态工厂模式</h3><pre><code>//title 静态工厂模式
+class AbstractProduct
+class ConcreteProductA
+class ConcreteProductB
+class Factory{
+  {static} +public AbstractProduct produceProductA();
+  {static} +public AbstractProduct produceProductB();
+
+
+}
+note right of Factory :  public static AbstractProduct produceProductB()     {\nreturn new ConcreteProductB();\n}\npublic staticAbstractProduct produceProductA()     {\nreturn new ConcreteProductA();\n}
+AbstractProduct&lt;|-down- ConcreteProductB
+AbstractProduct&lt;|-down- ConcreteProductA
+Factory..&gt;AbstractProduct
+</code></pre><h2 id="代码github仓库地址"><a href="#代码github仓库地址" class="headerlink" title="代码github仓库地址"></a>代码github仓库地址</h2><p><a href="https://github.com/Aaron-Chan/DesignPattern/tree/master/FactoryMethod" target="_blank" rel="external">AaronChan-设计模式代码</a></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/设计模式/" rel="tag">#设计模式</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/07/06/CodeComplete-ReadingNotes/" rel="next" title="代码大全读书笔记">
+                <i class="fa fa-chevron-left"></i> 代码大全读书笔记
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/07/10/ood-solid/" rel="prev" title="面向对象设计原则">
+                面向对象设计原则 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/07/10/dp-creator-FatoryMethod/"
+           data-title="设计模式-创建型-工厂方法(Factory Mehtod)" data-url="http://yoursite.com/2016/07/10/dp-creator-FatoryMethod/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/headicon.jpg"
+               alt="AaronChan" />
+          <p class="site-author-name" itemprop="name">AaronChan</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">6</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">分类</span>
+              
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/Aaron-Chan" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#使用工厂方法原因"><span class="nav-number">1.</span> <span class="nav-text">使用工厂方法原因</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#工厂方法的分类"><span class="nav-number">2.</span> <span class="nav-text">工厂方法的分类</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#简单工厂模式"><span class="nav-number">2.1.</span> <span class="nav-text">简单工厂模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#概述"><span class="nav-number">2.1.1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#UML图"><span class="nav-number">2.1.2.</span> <span class="nav-text">UML图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#典型代码"><span class="nav-number">2.1.3.</span> <span class="nav-text">典型代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#示例UML图"><span class="nav-number">2.1.4.</span> <span class="nav-text">示例UML图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#示例代码"><span class="nav-number">2.1.5.</span> <span class="nav-text">示例代码</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#工厂方法模式-相对简单工厂模式只是工厂类发生了变化"><span class="nav-number">2.2.</span> <span class="nav-text">工厂方法模式:相对简单工厂模式只是工厂类发生了变化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#UML图-1"><span class="nav-number">2.2.1.</span> <span class="nav-text">UML图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#典型代码-1"><span class="nav-number">2.2.2.</span> <span class="nav-text">典型代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#示例UML图-1"><span class="nav-number">2.2.3.</span> <span class="nav-text">示例UML图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#示例代码-1"><span class="nav-number">2.2.4.</span> <span class="nav-text">示例代码</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#静态工厂模式"><span class="nav-number">2.3.</span> <span class="nav-text">静态工厂模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#UML图-2"><span class="nav-number">2.3.1.</span> <span class="nav-text">UML图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#典型代码-2"><span class="nav-number">2.3.2.</span> <span class="nav-text">典型代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#示例UML图-2"><span class="nav-number">2.3.3.</span> <span class="nav-text">示例UML图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#示例代码-2"><span class="nav-number">2.3.4.</span> <span class="nav-text">示例代码:</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#附录"><span class="nav-number">3.</span> <span class="nav-text">附录</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#UML代码"><span class="nav-number">3.1.</span> <span class="nav-text">UML代码</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#简单工厂模式-1"><span class="nav-number">3.1.1.</span> <span class="nav-text">简单工厂模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#工厂方法模式"><span class="nav-number">3.1.2.</span> <span class="nav-text">工厂方法模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#静态工厂模式-1"><span class="nav-number">3.1.3.</span> <span class="nav-text">静态工厂模式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#代码github仓库地址"><span class="nav-number">3.2.</span> <span class="nav-text">代码github仓库地址</span></a></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">AaronChan</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"aaronchan"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+  
+
+
+
+
+
+
+  
+  
+  
+
+  
+
+  
+
+</body>
+</html>
