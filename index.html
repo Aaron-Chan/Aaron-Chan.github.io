@@ -323,194 +323,34 @@
 <h2 id="简单工厂模式"><a href="#简单工厂模式" class="headerlink" title="简单工厂模式"></a>简单工厂模式</h2><h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><p>&nbsp;&nbsp;定义一个工厂类，它可以根据参数的不同返回不同类的实例，被创建的实例通常都具有共同的父类。</p>
 <h3 id="UML图"><a href="#UML图" class="headerlink" title="UML图"></a>UML图</h3><p><img src="http://oa5ova13h.bkt.clouddn.com/simple_factory_classic.png" alt="简单工厂模式"></p>
 <h3 id="典型代码"><a href="#典型代码" class="headerlink" title="典型代码"></a>典型代码</h3><p>典型的抽象产品类代码如下所示：</p>
-<pre><code>public abstract class AbstractProduct {
-}
-</code></pre><p>典型的具体产品类代码如下所示：</p>
-<figure class="highlight java"><figcaption><span>public class ConcreteProductA extends AbstractProduct &#123;</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ConcreteProductB</span> <span class="keyword">extends</span> <span class="title">AbstractProduct</span> </span>&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>典型的工厂类代码如下所示：</p>
-<pre><code>public class Factory {
-    public AbstractProduct produce(String type) {
-        AbstractProduct product = null;
-        if (&quot;1&quot;.equals(type)) {
-            product = new ConcreteProductA();
-        } else if (&quot;2&quot;.equals(type)) {
-            product = new ConcreteProductB();
-        }
-        return product;
-    }
-}
-</code></pre><p>典型的客户端类代码如下所示：</p>
-<pre><code>public class App {
-    public static void main(String[] args) {
-        AbstractProduct product;
-        Factory factory = new Factory();
-        product = factory.produce(&quot;A&quot;);
-        System.out.println(product instanceof ConcreteProductA);
-    }
-}
-</code></pre><h3 id="示例UML图"><a href="#示例UML图" class="headerlink" title="示例UML图"></a>示例UML图</h3><p><img src="http://oa5ova13h.bkt.clouddn.com/simple_factory_example.png" alt=""></p>
-<h3 id="示例代码"><a href="#示例代码" class="headerlink" title="示例代码"></a>示例代码</h3><p>抽象产品类-MobilePhone</p>
-<pre><code>public abstract class MobilePhone {
-    protected OS os;
-    public OS getOs() {
-        return os;
-    }
-    public void setOs(OS os) {
-        this.os = os;
-    }
-}
-</code></pre><p>具体产品类-AndroidPhone</p>
-<pre><code>public class AndroidPhone extends MobilePhone {
-    public AndroidPhone() {
-        this.os = OS.Android;
-    }
-}
-</code></pre><p>具体产品类-IOSPhone</p>
-<pre><code>public class IOSPhone extends MobilePhone {
-    public IOSPhone() {
-        this.os = OS.IOS;
-    }
-}
-</code></pre><p>工厂类-MobilePhoneFactory</p>
-<pre><code>public class MobilePhoneFactory {
-    public MobilePhone produce(String os) {
-        MobilePhone mobilePhone = null;
-        if (&quot;android&quot;.equalsIgnoreCase(os)) {
-            mobilePhone = new AndroidPhone();
-        } else if (&quot;ios&quot;.equalsIgnoreCase(os)) {
-            mobilePhone = new IOSPhone();
-        }
-        return mobilePhone;
-    }
-}
-</code></pre><h2 id="工厂方法模式"><a href="#工厂方法模式" class="headerlink" title="工厂方法模式"></a>工厂方法模式</h2><p>相对简单工厂模式只是工厂类发生了变化</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">AbstractProduct</span> </span>&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>典型的具体产品类代码如下所示：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ConcreteProductA</span> <span class="keyword">extends</span> <span class="title">AbstractProduct</span> </span>&#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ConcreteProductB</span> <span class="keyword">extends</span> <span class="title">AbstractProduct</span> </span>&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>典型的工厂类代码如下所示：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Factory</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> AbstractProduct <span class="title">produce</span><span class="params">(String type)</span> </span>&#123;</span><br><span class="line">        AbstractProduct product = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">if</span> (<span class="string">"1"</span>.equals(type)) &#123;</span><br><span class="line">            product = <span class="keyword">new</span> ConcreteProductA();</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="string">"2"</span>.equals(type)) &#123;</span><br><span class="line">            product = <span class="keyword">new</span> ConcreteProductB();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> product;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>典型的客户端类代码如下所示：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">App</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        AbstractProduct product;</span><br><span class="line">        Factory factory = <span class="keyword">new</span> Factory();</span><br><span class="line">        product = factory.produce(<span class="string">"A"</span>);</span><br><span class="line">        System.out.println(product <span class="keyword">instanceof</span> ConcreteProductA);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="示例UML图"><a href="#示例UML图" class="headerlink" title="示例UML图"></a>示例UML图</h3><p><img src="http://oa5ova13h.bkt.clouddn.com/simple_factory_example.png" alt=""></p>
+<h3 id="示例代码"><a href="#示例代码" class="headerlink" title="示例代码"></a>示例代码</h3><p>抽象产品类-MobilePhone<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">MobilePhone</span> </span>&#123;</span><br><span class="line">    <span class="keyword">protected</span> OS os;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> OS <span class="title">getOs</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> os;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setOs</span><span class="params">(OS os)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.os = os;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>具体产品类-AndroidPhone<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AndroidPhone</span> <span class="keyword">extends</span> <span class="title">MobilePhone</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">AndroidPhone</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.os = OS.Android;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>具体产品类-IOSPhone<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">IOSPhone</span> <span class="keyword">extends</span> <span class="title">MobilePhone</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">IOSPhone</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.os = OS.IOS;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>工厂类-MobilePhoneFactory<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MobilePhoneFactory</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> MobilePhone <span class="title">produce</span><span class="params">(String os)</span> </span>&#123;</span><br><span class="line">        MobilePhone mobilePhone = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">if</span> (<span class="string">"android"</span>.equalsIgnoreCase(os)) &#123;</span><br><span class="line">            mobilePhone = <span class="keyword">new</span> AndroidPhone();</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="string">"ios"</span>.equalsIgnoreCase(os)) &#123;</span><br><span class="line">            mobilePhone = <span class="keyword">new</span> IOSPhone();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> mobilePhone;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="工厂方法模式"><a href="#工厂方法模式" class="headerlink" title="工厂方法模式"></a>工厂方法模式</h2><p>相对简单工厂模式只是工厂类发生了变化</p>
 <h3 id="UML图-1"><a href="#UML图-1" class="headerlink" title="UML图"></a>UML图</h3><p><img src="http://oa5ova13h.bkt.clouddn.com/multi_factory_classic.png" alt="工厂方法模式"></p>
-<h3 id="典型代码-1"><a href="#典型代码-1" class="headerlink" title="典型代码"></a>典型代码</h3><p>典型的工厂类代码如下所示：</p>
-<pre><code>public class Factory {
-    public AbstractProduct produceProductA() {
-        return new ConcreteProductA();
-    }
-
-    public AbstractProduct produceProductB() {
-        return new ConcreteProductB();
-    }
-}
-</code></pre><p>典型的客户端类代码如下所示：</p>
-<pre><code>public class App {
-    public static void main(String[] args) {
-        AbstractProduct product;
-        Factory factory = new Factory();
-        product = factory.produceProductA();
-        AbstractProduct product2 = factory.produceProductB();
-    }
-}
-</code></pre><h3 id="示例UML图-1"><a href="#示例UML图-1" class="headerlink" title="示例UML图"></a>示例UML图</h3><p><img src="http://oa5ova13h.bkt.clouddn.com/multi_factory_example.png" alt=""></p>
-<h3 id="示例代码-1"><a href="#示例代码-1" class="headerlink" title="示例代码"></a>示例代码</h3><p>抽象产品类-Cola</p>
-<pre><code>public abstract class Cola {
-    private Size brand;
-    public Cola(Size brand) {
-        super();
-        this.brand = brand;
-    }
-    @Override
-    public String toString() {
-        return this.getClass().getSimpleName() + &quot; [brand=&quot; + brand + &quot;]&quot;;
-    }
-}
-</code></pre><p>具体产品类-CocaCola和PensiCola</p>
-<pre><code>public class CocaCola extends Cola {
-    public CocaCola(Size os) {
-        super(os);
-    }
-}
-
-public class PensiCola extends Cola {
-    public PensiCola(Size brand) {
-        super(brand);
-    }
-}
-</code></pre><p>工厂类-ColaFactory</p>
-<pre><code>public class ColaFactory {
-    public Cola producePensiCola(Size size) {
-        return new CocaCola(size);
-    }
-    public Cola produceCocaCola(Size size) {
-        return new PensiCola(size);
-    }
-}
-</code></pre><p>客户端类-MultiFactoryApp</p>
-<pre><code>public class MultiFactoryApp {
-    public static void main(String[] args) {
-        ColaFactory factory = new ColaFactory();
-        Cola firstCola = factory.produceCocaCola(Size.BOTTLING);
-        System.out.println(firstCola);
-        Cola secondCola = factory.producePensiCola(Size.CANNED);
-        System.out.println(secondCola);
-    }
-}
-</code></pre><h2 id="静态工厂模式"><a href="#静态工厂模式" class="headerlink" title="静态工厂模式"></a>静态工厂模式</h2><h3 id="UML图-2"><a href="#UML图-2" class="headerlink" title="UML图"></a>UML图</h3><p><img src="http://oa5ova13h.bkt.clouddn.com/static_factory_classic.png" alt="静态工厂模式"></p>
-<h3 id="典型代码-2"><a href="#典型代码-2" class="headerlink" title="典型代码"></a>典型代码</h3><p>典型的工厂类代码如下所示：</p>
-<pre><code>public class Factory {
-    public static AbstractProduct produceProductA() {
-    return new ConcreteProductA();
-    }
-
-    public static AbstractProduct produceProductB() {
-        return new ConcreteProductB();
-    }
-}
-</code></pre><p>典型的客户端类代码如下所示：</p>
-<pre><code>public class App {
-    public static void main(String[] args) {
-    AbstractProduct product;
-    product = Factory.produceProductA();
-    AbstractProduct product2 = Factory.produceProductB();
-    }
-}
-</code></pre><h3 id="示例UML图-2"><a href="#示例UML图-2" class="headerlink" title="示例UML图"></a>示例UML图</h3><p><img src="http://oa5ova13h.bkt.clouddn.com/static_factory_example.png" alt=""></p>
-<h3 id="示例代码-2"><a href="#示例代码-2" class="headerlink" title="示例代码:"></a>示例代码:</h3><p>抽象产品类-Human</p>
-<pre><code>public abstract class Human {
-    private Color color;
-    public Human(Color gender) {
-        super();
-        this.color = gender;
-    }
-    @Override
-    public String toString() {
-        return this.getClass().getSimpleName() + &quot; [gender=&quot; + color + &quot;]&quot;;
-    }
-}
-</code></pre><p>具体产品类-Man和Woman</p>
-<pre><code>public class Man extends Human {
-    public Man(Color gender) {
-        super(gender);
-    }
-}
-
-public class Woman extends Human {
-    public Woman(Color gender) {
-        super(gender);
-    }
-}
-</code></pre><p>工厂类-ColaFactory</p>
-<pre><code>public class GodFactory {
-    public static Human produceMan(Color color) {
-        return new Man(color);
-    }
-    public static Human produceWoman(Color color) {
-        return new Woman(color);
-    }
-}
-</code></pre><p>客户端类-StaticApp</p>
-<pre><code>public class StaticApp {
-    public static void main(String[] args) {
-        Human produceMan = GodFactory.produceMan(Color.WHITE);
-        System.out.println(produceMan);
-        Human produceWoman = GodFactory.produceWoman(Color.BLACK);
-        System.out.println(produceWoman);
-    }
-}
-</code></pre><h1 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h1><h2 id="UML代码"><a href="#UML代码" class="headerlink" title="UML代码"></a>UML代码</h2><h3 id="简单工厂模式-1"><a href="#简单工厂模式-1" class="headerlink" title="简单工厂模式"></a>简单工厂模式</h3><pre><code>//title 简单工厂模式
+<h3 id="典型代码-1"><a href="#典型代码-1" class="headerlink" title="典型代码"></a>典型代码</h3><p>典型的工厂类代码如下所示：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Factory</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> AbstractProduct <span class="title">produceProductA</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> ConcreteProductA();</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> AbstractProduct <span class="title">produceProductB</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> ConcreteProductB();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>典型的客户端类代码如下所示：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">App</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        AbstractProduct product;</span><br><span class="line">        Factory factory = <span class="keyword">new</span> Factory();</span><br><span class="line">        product = factory.produceProductA();</span><br><span class="line">        AbstractProduct product2 = factory.produceProductB();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="示例UML图-1"><a href="#示例UML图-1" class="headerlink" title="示例UML图"></a>示例UML图</h3><p><img src="http://oa5ova13h.bkt.clouddn.com/multi_factory_example.png" alt=""></p>
+<h3 id="示例代码-1"><a href="#示例代码-1" class="headerlink" title="示例代码"></a>示例代码</h3><p>抽象产品类-Cola<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Cola</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> Size brand;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Cola</span><span class="params">(Size brand)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>();</span><br><span class="line">        <span class="keyword">this</span>.brand = brand;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.getClass().getSimpleName() + <span class="string">" [brand="</span> + brand + <span class="string">"]"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>具体产品类-CocaCola和PensiCola<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CocaCola</span> <span class="keyword">extends</span> <span class="title">Cola</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">CocaCola</span><span class="params">(Size os)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>(os);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PensiCola</span> <span class="keyword">extends</span> <span class="title">Cola</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">PensiCola</span><span class="params">(Size brand)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>(brand);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>工厂类-ColaFactory<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ColaFactory</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> Cola <span class="title">producePensiCola</span><span class="params">(Size size)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> CocaCola(size);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> Cola <span class="title">produceCocaCola</span><span class="params">(Size size)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> PensiCola(size);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>客户端类-MultiFactoryApp<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MultiFactoryApp</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        ColaFactory factory = <span class="keyword">new</span> ColaFactory();</span><br><span class="line">        Cola firstCola = factory.produceCocaCola(Size.BOTTLING);</span><br><span class="line">        System.out.println(firstCola);</span><br><span class="line">        Cola secondCola = factory.producePensiCola(Size.CANNED);</span><br><span class="line">        System.out.println(secondCola);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="静态工厂模式"><a href="#静态工厂模式" class="headerlink" title="静态工厂模式"></a>静态工厂模式</h2><h3 id="UML图-2"><a href="#UML图-2" class="headerlink" title="UML图"></a>UML图</h3><p><img src="http://oa5ova13h.bkt.clouddn.com/static_factory_classic.png" alt="静态工厂模式"></p>
+<h3 id="典型代码-2"><a href="#典型代码-2" class="headerlink" title="典型代码"></a>典型代码</h3><p>典型的工厂类代码如下所示：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Factory</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> AbstractProduct <span class="title">produceProductA</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> ConcreteProductA();</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> AbstractProduct <span class="title">produceProductB</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> ConcreteProductB();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>典型的客户端类代码如下所示：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">App</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    AbstractProduct product;</span><br><span class="line">    product = Factory.produceProductA();</span><br><span class="line">    AbstractProduct product2 = Factory.produceProductB();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="示例UML图-2"><a href="#示例UML图-2" class="headerlink" title="示例UML图"></a>示例UML图</h3><p><img src="http://oa5ova13h.bkt.clouddn.com/static_factory_example.png" alt=""></p>
+<h3 id="示例代码-2"><a href="#示例代码-2" class="headerlink" title="示例代码:"></a>示例代码:</h3><p>抽象产品类-Human<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Human</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> Color color;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Human</span><span class="params">(Color gender)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>();</span><br><span class="line">        <span class="keyword">this</span>.color = gender;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.getClass().getSimpleName() + <span class="string">" [gender="</span> + color + <span class="string">"]"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>具体产品类-Man和Woman<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Man</span> <span class="keyword">extends</span> <span class="title">Human</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Man</span><span class="params">(Color gender)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>(gender);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Woman</span> <span class="keyword">extends</span> <span class="title">Human</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Woman</span><span class="params">(Color gender)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>(gender);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>工厂类-ColaFactory<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">GodFactory</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Human <span class="title">produceMan</span><span class="params">(Color color)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> Man(color);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Human <span class="title">produceWoman</span><span class="params">(Color color)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> Woman(color);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>客户端类-StaticApp<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">StaticApp</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Human produceMan = GodFactory.produceMan(Color.WHITE);</span><br><span class="line">        System.out.println(produceMan);</span><br><span class="line">        Human produceWoman = GodFactory.produceWoman(Color.BLACK);</span><br><span class="line">        System.out.println(produceWoman);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h1 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h1><h2 id="UML代码"><a href="#UML代码" class="headerlink" title="UML代码"></a>UML代码</h2><h3 id="简单工厂模式-1"><a href="#简单工厂模式-1" class="headerlink" title="简单工厂模式"></a>简单工厂模式</h3><pre><code>//title 简单工厂模式
 class AbstractProduct
 class ConcreteProductA
 class ConcreteProductB
