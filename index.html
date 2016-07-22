@@ -326,12 +326,8 @@
 <pre><code>public abstract class AbstractProduct {
 }
 </code></pre><p>典型的具体产品类代码如下所示：</p>
-<pre><code>public class ConcreteProductA extends AbstractProduct {
-}
-
-public class ConcreteProductB extends AbstractProduct {
-}
-</code></pre><p>典型的工厂类代码如下所示：</p>
+<figure class="highlight java"><figcaption><span>public class ConcreteProductA extends AbstractProduct &#123;</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ConcreteProductB</span> <span class="keyword">extends</span> <span class="title">AbstractProduct</span> </span>&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>典型的工厂类代码如下所示：</p>
 <pre><code>public class Factory {
     public AbstractProduct produce(String type) {
         AbstractProduct product = null;
@@ -555,7 +551,7 @@ note right of Factory :  public static AbstractProduct produceProductB()     {\n
 AbstractProduct&lt;|-down- ConcreteProductB
 AbstractProduct&lt;|-down- ConcreteProductA
 Factory..&gt;AbstractProduct
-</code></pre><h2 id="代码github仓库地址"><a href="#代码github仓库地址" class="headerlink" title="代码github仓库地址"></a>代码github仓库地址</h2><p><a href="https://github.com/Aaron-Chan/DesignPattern/tree/master/FactoryMethod" target="_blank" rel="external">AaronChan-设计模式代码</a></p>
+</code></pre><h2 id="github仓库地址"><a href="#github仓库地址" class="headerlink" title="github仓库地址"></a>github仓库地址</h2><p><a href="https://github.com/Aaron-Chan/DesignPattern/tree/master/FactoryMethod" target="_blank" rel="external">AaronChan-设计模式代码</a></p>
 
           
         
