@@ -248,6 +248,150 @@
             
               
                 
+                <a class="post-title-link" href="/2016/08/15/dp-structural-decorator/" itemprop="url">
+                  设计模式-结构型-装饰者模式(Decorator Pattern)
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-08-15T23:05:00+08:00" content="2016-08-15">
+              2016-08-15
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/技术/" itemprop="url" rel="index">
+                    <span itemprop="name">技术</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/08/15/dp-structural-decorator/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/15/dp-structural-decorator/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="装饰者模式"><a href="#装饰者模式" class="headerlink" title="装饰者模式"></a>装饰者模式</h2><h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><p>&nbsp;&nbsp;动态地给一个对象增加一些额外的职责(Responsibility)，就增加对象功能来说，装饰模式比生成子类实现更为灵活。其别名也可以称为包装器(Wrapper)，与适配器模式的别名相同，但它们适用于不同的场合。根据翻译的不同，装饰模式也有人称之为“油漆工模式”，它是一种对象结构型模式。</p>
+<h3 id="角色分析"><a href="#角色分析" class="headerlink" title="角色分析"></a>角色分析</h3><ul>
+<li>Component（抽象构件）：它是具体构件和抽象装饰类的共同父类，声明了在具体构件中实现的业务方法，它的引入可以使客户端以一致的方式处理未被装饰的对象以及装饰之后的对象，实现客户端的透明操作。</li>
+<li>ConcreteComponent（具体构件）：它是抽象构件类的子类，用于定义具体的构件对象，实现了在抽象构件中声明的方法，装饰器可以给它增加额外的职责（方法）。</li>
+<li>Decorator（抽象装饰类）：它也是抽象构件类的子类，用于给具体构件增加职责，但是具体职责在其子类中实现。它维护一个指向抽象构件对象的引用，通过该引用可以调用装饰之前构件对象的方法，并通过其子类扩展该方法，以达到装饰的目的。</li>
+<li>ConcreteDecorator（具体装饰类）：它是抽象装饰类的子类，负责向构件添加新的职责。每一个具体装饰类都定义了一些新的行为，它可以调用在抽象装饰类中定义的方法，并可以增加新的方法用以扩充对象的行为。</li>
+</ul>
+<h3 id="UML图"><a href="#UML图" class="headerlink" title="UML图"></a>UML图</h3><p><img src="http://oa5ova13h.bkt.clouddn.com/decorator_classic.png" alt="装饰者模式"></p>
+<h3 id="典型代码"><a href="#典型代码" class="headerlink" title="典型代码"></a>典型代码</h3><p>抽象构件:Component<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">interfere Component&#123;</span><br><span class="line">   <span class="function"><span class="keyword">void</span> <span class="title">operation</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>抽象装饰类:Decorator<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Decorator</span> <span class="keyword">implements</span> <span class="title">Component</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> Component component;  <span class="comment">//维持一个对抽象构件对象的引用</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Decorator</span><span class="params">(Component component)</span>  <span class="comment">//注入一个抽象构件类型的对象</span></span><br><span class="line">    </span>&#123;</span><br><span class="line">           <span class="keyword">this</span>.component=component;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">operation</span><span class="params">()</span></span><br><span class="line">    </span>&#123;</span><br><span class="line">           component.operation();  <span class="comment">//调用原有业务方法</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>具体装饰类：ConcreteDecorator<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"> <span class="class"><span class="keyword">class</span> <span class="title">ConcreteDecorator</span> <span class="keyword">extends</span> <span class="title">Decorator</span></span>&#123;</span><br><span class="line">       <span class="function"><span class="keyword">public</span> <span class="title">ConcreteDecorator</span><span class="params">(Component  component)</span></span>&#123;</span><br><span class="line">              <span class="keyword">super</span>(component);</span><br><span class="line">       &#125;</span><br><span class="line"></span><br><span class="line">       <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">operation</span><span class="params">()</span></span>&#123;</span><br><span class="line">              <span class="keyword">super</span>.operation();  <span class="comment">//调用原有业务方法</span></span><br><span class="line">              addedBehavior();  <span class="comment">//调用新增业务方法</span></span><br><span class="line">       &#125;</span><br><span class="line"></span><br><span class="line">     <span class="comment">//新增业务方法</span></span><br><span class="line">       <span class="function"><span class="keyword">public</span>  <span class="keyword">void</span> <span class="title">addedBehavior</span><span class="params">()</span></span>&#123;    </span><br><span class="line">         ……</span><br><span class="line">       &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="示例UML图"><a href="#示例UML图" class="headerlink" title="示例UML图"></a>示例UML图</h3><p><img src="http://oa5ova13h.bkt.clouddn.com/decorator_example.png" alt=""></p>
+<h3 id="示例代码"><a href="#示例代码" class="headerlink" title="示例代码"></a>示例代码</h3><p>&nbsp;&nbsp;下面示例中，婚车WeddingCar，想要利用Benz作为婚车且在跑的过程中播放音乐，采用装饰者模式可以动态添加行为。<br>抽象构件:Car<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Car</span> </span>&#123;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">run</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>装饰类:Decorator<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Benz</span> <span class="keyword">implements</span> <span class="title">Car</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"Benz run"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>具体装饰类：WeddingCar<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">WeddingCar</span> <span class="keyword">implements</span> <span class="title">Car</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> Car car;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        car.run();</span><br><span class="line">        System.out.println(<span class="string">"car play festive music"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">WeddingCar</span><span class="params">(Car car)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>();</span><br><span class="line">        <span class="keyword">this</span>.car = car;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>客户端：APP<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">App</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Car car = <span class="keyword">new</span> Benz();</span><br><span class="line">        Car weddingCar = <span class="keyword">new</span> WeddingCar(car);</span><br><span class="line">        weddingCar.run();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h3><ul>
+<li>装饰模式与继承关系的目的都是要扩展对象的功能，但是装饰模式可以提供比继承更多的灵活性。<br>可以通过一种动态的方式来扩展一个对象的功能，通过配置文件可以在运行时选择不同的装饰器，从而实现不同的行为。</li>
+<li>通过使用不同的具体装饰类以及这些装饰类的排列组合，可以创造出很多不同行为的组合。可以使用多个具体装饰类来装饰同一对象，得到功能更为强大的对象。</li>
+<li>具体构件类与具体装饰类可以独立变化，用户可以根据需要增加新的具体构件类和具体装饰类，在使用时再对其进行组合，原有代码无须改变，符合“开闭原则”<h3 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h3></li>
+<li>使用装饰模式进行系统设计时将产生很多小对象，这些对象的区别在于它们之间相互连接的方式有所不同，而不是它们的类或者属性值有所不同，同时还将产生很多具体装饰类。这些装饰类和小对象的产生将增加系统的复杂度，加大学习与理解的难度。</li>
+<li>这种比继承更加灵活机动的特性，也同时意味着装饰模式比继承更加易于出错，排错也很困难，对于多次装饰的对象，调试时寻找错误可能需要逐级排查，较为烦琐。<h3 id="适用环境"><a href="#适用环境" class="headerlink" title="适用环境"></a>适用环境</h3></li>
+<li>在不影响其他对象的情况下，以动态、透明的方式给单个对象添加职责。<br>需要动态地给一个对象增加功能，这些功能也可以动态地被撤销。</li>
+<li>当不能采用继承的方式对系统进行扩充或者采用继承不利于系统扩展和维护时。不能采用继承的情况主要有两类：第一类是系统中存在大量独立的扩展，为支持每一种组合将产生大量的子类，使得子类数目呈爆炸性增长；第二类是因为类定义 <em>不能继承</em>（如final类）.</li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/08/15/dp-structural-bridge/" itemprop="url">
                   设计模式-结构型-桥接模式(Bridge Pattern)
                 </a>
@@ -1110,6 +1254,172 @@
             
               
                 
+                <a class="post-title-link" href="/2016/07/10/ood-solid/" itemprop="url">
+                  面向对象设计原则
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-07-10T21:58:00+08:00" content="2016-07-10">
+              2016-07-10
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/技术/" itemprop="url" rel="index">
+                    <span itemprop="name">技术</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/07/10/ood-solid/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/10/ood-solid/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="设计原则简述"><a href="#设计原则简述" class="headerlink" title="设计原则简述"></a>设计原则简述</h1><p>&nbsp;&nbsp;面向对象设计原则为支持可维护性复用而诞生，这些原则蕴含在很多设计模式中，它们是从许多设计方案中总结出的指导性原则。面向对象设计原则也是我们用于评价一个设计模式的使用效果的重要指标之一。<br>&nbsp;&nbsp;SOLID（单一功能、开闭原则、里氏替换、接口隔离以及依赖反转）是由罗伯特·C·马丁在21世纪早期引入的记忆术首字母缩略字，指代了面向对象编程和面向对象设计的五个基本原则。当这些原则被一起应用时，它们使得一个程序员开发一个容易进行软件维护和扩展的系统变得更加可能。除了SOLID，经常被提及的原则还有合成复用原则和迪米特原则（最少知道原则）。下表是7种常用的设计原则。</p>
+<table>
+<thead>
+<tr>
+<th>设计原则名称</th>
+<th>定义</th>
+<th>使用频率</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>单一职责原则 (Single Responsibility Principle, SRP)</td>
+<td>一个类只负责一个功能领域中的相应职责</td>
+<td>★★★★☆</td>
+</tr>
+<tr>
+<td>开闭原则 (Open-Closed Principle, OCP)</td>
+<td>软件实体应对扩展开放，而对修改关闭。实现方式是使用抽象类和接口</td>
+<td>★★★★★</td>
+</tr>
+<tr>
+<td>里氏代换原则 (Liskov Substitution Principle, LSP)</td>
+<td>程序中的对象应该是可以在不改变程序正确性的前提下被它的子类所替换的</td>
+<td>★★★★★</td>
+</tr>
+<tr>
+<td>依赖倒转原则 (Dependence Inversion Principle, DIP)</td>
+<td>抽象不应该依赖于细节，细节应该依赖于抽象。依赖注入是该原则的一种实现方式。</td>
+<td>★★★★★</td>
+</tr>
+<tr>
+<td>接口隔离原则 (Interface Segregation Principle, ISP)</td>
+<td>使用多个专门的接口，而不使用单一的总接口</td>
+<td>★★☆☆☆</td>
+</tr>
+<tr>
+<td>合成复用原则 (Composite Reuse Principle, CRP)</td>
+<td>尽量使用合成/聚合的方式，而不是使用继承。</td>
+<td>★★★★☆</td>
+</tr>
+<tr>
+<td>迪米特法则 (Law of Demeter, LoD)</td>
+<td>一个软件实体应当尽可能少地与其他实体发生相互作用。</td>
+<td>★★★☆☆</td>
+</tr>
+</tbody>
+</table>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/07/10/dp-creator-FatoryMethod/" itemprop="url">
                   设计模式-创建型-工厂方法(Factory Mehtod)
                 </a>
@@ -1275,172 +1585,6 @@ AbstractProduct&lt;|-down- ConcreteProductB
 AbstractProduct&lt;|-down- ConcreteProductA
 Factory..&gt;AbstractProduct
 </code></pre><h2 id="github仓库地址"><a href="#github仓库地址" class="headerlink" title="github仓库地址"></a>github仓库地址</h2><p><a href="https://github.com/Aaron-Chan/DesignPattern/tree/master/FactoryMethod" target="_blank" rel="external">AaronChan-设计模式代码</a></p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/07/10/ood-solid/" itemprop="url">
-                  面向对象设计原则
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-07-10T21:58:00+08:00" content="2016-07-10">
-              2016-07-10
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/技术/" itemprop="url" rel="index">
-                    <span itemprop="name">技术</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/07/10/ood-solid/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/10/ood-solid/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="设计原则简述"><a href="#设计原则简述" class="headerlink" title="设计原则简述"></a>设计原则简述</h1><p>&nbsp;&nbsp;面向对象设计原则为支持可维护性复用而诞生，这些原则蕴含在很多设计模式中，它们是从许多设计方案中总结出的指导性原则。面向对象设计原则也是我们用于评价一个设计模式的使用效果的重要指标之一。<br>&nbsp;&nbsp;SOLID（单一功能、开闭原则、里氏替换、接口隔离以及依赖反转）是由罗伯特·C·马丁在21世纪早期引入的记忆术首字母缩略字，指代了面向对象编程和面向对象设计的五个基本原则。当这些原则被一起应用时，它们使得一个程序员开发一个容易进行软件维护和扩展的系统变得更加可能。除了SOLID，经常被提及的原则还有合成复用原则和迪米特原则（最少知道原则）。下表是7种常用的设计原则。</p>
-<table>
-<thead>
-<tr>
-<th>设计原则名称</th>
-<th>定义</th>
-<th>使用频率</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>单一职责原则 (Single Responsibility Principle, SRP)</td>
-<td>一个类只负责一个功能领域中的相应职责</td>
-<td>★★★★☆</td>
-</tr>
-<tr>
-<td>开闭原则 (Open-Closed Principle, OCP)</td>
-<td>软件实体应对扩展开放，而对修改关闭。实现方式是使用抽象类和接口</td>
-<td>★★★★★</td>
-</tr>
-<tr>
-<td>里氏代换原则 (Liskov Substitution Principle, LSP)</td>
-<td>程序中的对象应该是可以在不改变程序正确性的前提下被它的子类所替换的</td>
-<td>★★★★★</td>
-</tr>
-<tr>
-<td>依赖倒转原则 (Dependence Inversion Principle, DIP)</td>
-<td>抽象不应该依赖于细节，细节应该依赖于抽象。依赖注入是该原则的一种实现方式。</td>
-<td>★★★★★</td>
-</tr>
-<tr>
-<td>接口隔离原则 (Interface Segregation Principle, ISP)</td>
-<td>使用多个专门的接口，而不使用单一的总接口</td>
-<td>★★☆☆☆</td>
-</tr>
-<tr>
-<td>合成复用原则 (Composite Reuse Principle, CRP)</td>
-<td>尽量使用合成/聚合的方式，而不是使用继承。</td>
-<td>★★★★☆</td>
-</tr>
-<tr>
-<td>迪米特法则 (Law of Demeter, LoD)</td>
-<td>一个软件实体应当尽可能少地与其他实体发生相互作用。</td>
-<td>★★★☆☆</td>
-</tr>
-</tbody>
-</table>
 
           
         
@@ -2997,302 +3141,6 @@ Country_Last = 6;
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/06/30/design-pattern/" itemprop="url">
-                  设计模式
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-06-30T22:40:13+08:00" content="2016-06-30">
-              2016-06-30
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/技术/" itemprop="url" rel="index">
-                    <span itemprop="name">技术</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/06/30/design-pattern/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/06/30/design-pattern/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="设计模式概述"><a href="#设计模式概述" class="headerlink" title="设计模式概述"></a>设计模式概述</h1><h2 id="设计模式基本概念"><a href="#设计模式基本概念" class="headerlink" title="设计模式基本概念"></a>设计模式基本概念</h2><p>&nbsp;&nbsp;在软件工程中，设计模式（design pattern）是对软件设计中普遍存在（反复出现）的各种问题，所提出的解决方案。这个术语是由埃里希·伽玛（Erich Gamma）等人在1990年代从建筑设计领域引入到计算机科学的。<br>设计模式并不直接用来完成代码的编写，而是描述在各种不同情况下，要怎么解决问题的一种方案。面向对象设计模式通常以类别或对象来描述其中的关系和相互作用，但不涉及用来完成应用程序的特定类别或对象。设计模式能使不稳定依赖于相对稳定、具体依赖于相对抽象，避免会引起麻烦的紧耦合，以增强软件设计面对并适应变化的能力。<br>并非所有的软件模式都是设计模式，设计模式特指软件“设计”层次上的问题。还有其它非设计模式的模式，如架构模式。同时，算法不能算是一种设计模式，因为算法主要是用来解决计算上的问题，而非设计上的问题。<a href="https://zh.wikipedia.org/wiki/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F" target="_blank" rel="external">来自维基百科</a>。总之，设计模式可以用一句话概括：</p>
-<blockquote>
-<p>模式是在特定环境下人们解决某类重复出现问题的一套成功或有效的解决方案。【A pattern is a successful or efficient solution to a recurring problem within a context】</p>
-</blockquote>
-<p>&nbsp;&nbsp;GoF在《设计模式：可复用面向对象软件的基础》一书中所介绍的23种经典设计模式,不过设计模式并不仅仅只有这23种，随着软件开发技术的发展，越来越多的新模式不断诞生并得以应用。</p>
-<h2 id="设计模式的组成"><a href="#设计模式的组成" class="headerlink" title="设计模式的组成"></a>设计模式的组成</h2><p>&nbsp;&nbsp;设计模式一般包含模式名称、问题、目的、解决方案、效果等组成要素，其中关键要素是模式名称、问题、解决方案和效果。</p>
-<blockquote>
-<ol>
-<li>模式名称(Pattern Name)通过一两个词来描述模式的问题、解决方案和效果，以便更好地理解模式并方便开发人员之间的交流，绝大多数模式都是根据其功能或模式结构来命名的；</li>
-<li>问题(Problem)描述了应该在何时使用模式，它包含了设计中存在的问题以及问题存在的原因;</li>
-<li>解决方案(Solution)描述了一个设计模式的组成成分，以及这些组成成分之间的相互关系，各自的职责和协作方式，通常解决方案通过UML类图和核心代码来进行描述；</li>
-<li>效果(Consequences)描述了模式的优缺点以及在使用模式时应权衡的问题。</li>
-</ol>
-</blockquote>
-<h2 id="设计模式的分类"><a href="#设计模式的分类" class="headerlink" title="设计模式的分类"></a>设计模式的分类</h2><p>&nbsp;&nbsp;根据用途，设计模式可分为一下三种:</p>
-<ol>
-<li>创建型(Creational)：主要描述如何创建对象</li>
-<li>结构型(Structural)：主要描述如何类或对象的组合</li>
-<li>行为型(Behavioral)：主要描述类或对象如何交互以及怎样分配职责<br>&nbsp;&nbsp;根据某个模式主要是用于处理类之间的关系还是对象之间的关系，设计模式还可以分为类模式和对象模式。<br>常用设计模式一览表</li>
-</ol>
-<table>
-<thead>
-<tr>
-<th>类型</th>
-<th>模式名称</th>
-<th>学习难度</th>
-<th>使用频率</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>创建型模式 Creational Pattern</td>
-<td>单例模式 Singleton Pattern</td>
-<td>★☆☆☆☆</td>
-<td>★★★★☆</td>
-</tr>
-<tr>
-<td>创建型模式 Creational Pattern</td>
-<td>简单工厂模式 Simple Factory Pattern</td>
-<td>★★☆☆☆</td>
-<td>★★★☆☆</td>
-</tr>
-<tr>
-<td>创建型模式 Creational Pattern</td>
-<td>工厂方法模式 Factory Method Pattern</td>
-<td>★★☆☆☆</td>
-<td>★★★★★</td>
-</tr>
-<tr>
-<td>创建型模式 Creational Pattern</td>
-<td>抽象工厂模式 Abstract Factory Pattern</td>
-<td>★★★★☆</td>
-<td>★★★★★</td>
-</tr>
-<tr>
-<td>创建型模式 Creational Pattern</td>
-<td>原型模式 Prototype Pattern</td>
-<td>★★★☆☆</td>
-<td>★★★☆☆</td>
-</tr>
-<tr>
-<td>创建型模式 Creational Pattern</td>
-<td>建造者模式 Builder Pattern</td>
-<td>★★★★☆</td>
-<td>★★☆☆☆</td>
-</tr>
-<tr>
-<td>结构型模式 Structural Pattern</td>
-<td>适配器模式 Adapter Pattern</td>
-<td>★★☆☆☆</td>
-<td>★★★★☆</td>
-</tr>
-<tr>
-<td>结构型模式 Structural Pattern</td>
-<td>桥接模式 Bridge Pattern</td>
-<td>★★★☆☆</td>
-<td>★★★☆☆</td>
-</tr>
-<tr>
-<td>结构型模式 Structural Pattern</td>
-<td>组合模式 Composite Pattern</td>
-<td>★★★☆☆</td>
-<td>★★★★☆</td>
-</tr>
-<tr>
-<td>结构型模式 Structural Pattern</td>
-<td>装饰模式 Decorator Pattern</td>
-<td>★★★☆☆</td>
-<td>★★★☆☆</td>
-</tr>
-<tr>
-<td>结构型模式 Structural Pattern</td>
-<td>外观模式 Façade Pattern</td>
-<td>★☆☆☆☆</td>
-<td>★★★★★</td>
-</tr>
-<tr>
-<td>结构型模式 Structural Pattern</td>
-<td>享元模式 Flyweight Pattern</td>
-<td>★★★★☆</td>
-<td>★☆☆☆☆</td>
-</tr>
-<tr>
-<td>结构型模式 Structural Pattern</td>
-<td>代理模式 Proxy Pattern</td>
-<td>★★★☆☆</td>
-<td>★★★★☆</td>
-</tr>
-<tr>
-<td>行为型模式 Behavioral Pattern</td>
-<td>职责链模式 Chain of Responsibility Pattern</td>
-<td>★★★☆☆</td>
-<td>★★☆☆☆</td>
-</tr>
-<tr>
-<td>行为型模式 Behavioral Pattern</td>
-<td>命令模式 Command Pattern</td>
-<td>★★★☆☆</td>
-<td>★★★★☆</td>
-</tr>
-<tr>
-<td>行为型模式 Behavioral Pattern</td>
-<td>解释器模式 Interpreter Pattern</td>
-<td>★★★★★</td>
-<td>★☆☆☆☆</td>
-</tr>
-<tr>
-<td>行为型模式 Behavioral Pattern</td>
-<td>迭代器模式 Iterator Pattern</td>
-<td>★★★☆☆</td>
-<td>★★★★★</td>
-</tr>
-<tr>
-<td>行为型模式 Behavioral Pattern</td>
-<td>中介者模式 Mediator Pattern</td>
-<td>★★★☆☆</td>
-<td>★★☆☆☆</td>
-</tr>
-<tr>
-<td>行为型模式 Behavioral Pattern</td>
-<td>备忘录模式 Memento Pattern</td>
-<td>★★☆☆☆</td>
-<td>★★☆☆☆</td>
-</tr>
-<tr>
-<td>行为型模式 Behavioral Pattern</td>
-<td>观察者模式 Observer Pattern</td>
-<td>★★★☆☆</td>
-<td>★★★★★</td>
-</tr>
-<tr>
-<td>行为型模式 Behavioral Pattern</td>
-<td>状态模式 State Pattern</td>
-<td>★★★☆☆</td>
-<td>★★★☆☆</td>
-</tr>
-<tr>
-<td>行为型模式 Behavioral Pattern</td>
-<td>策略模式 Strategy Pattern</td>
-<td>★☆☆☆☆</td>
-<td>★★★★☆</td>
-</tr>
-<tr>
-<td>行为型模式 Behavioral Pattern</td>
-<td>模板方法模式 Template Method Pattern</td>
-<td>★★☆☆☆</td>
-<td>★★★☆☆</td>
-</tr>
-<tr>
-<td>行为型模式 Behavioral Pattern</td>
-<td>访问者模式 Visitor Pattern</td>
-<td>★★★★☆</td>
-<td>★☆☆☆☆</td>
-</tr>
-</tbody>
-</table>
-<h2 id="学习目标"><a href="#学习目标" class="headerlink" title="学习目标"></a>学习目标</h2><p> 在学习每一个设计模式时至少应该掌握如下几点：这个设计模式的意图是什么，它要解决一个什么问题，什么时候可以使用它；它是如何解决的，掌握它的结构图，记住它的关键代码；能够想到至少两个它的应用实例，一个生活中的，一个软件中的；这个模式的优缺点是什么，在使用时要注意什么。当你能够回答上述所有问题时，恭喜你，你了解一个设计模式了，至于掌握它，那就在开发中去使用吧，用多了你自然就掌握了。</p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -3338,7 +3186,7 @@ Country_Last = 6;
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">22</span>
+              <span class="site-state-item-count">23</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
