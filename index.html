@@ -248,6 +248,152 @@
             
               
                 
+                <a class="post-title-link" href="/2016/08/28/dp-behaviour-chain/" itemprop="url">
+                  设计模式-行为型-职责链模式(Chain of Responsibility Pattern)
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-08-28T22:44:00+08:00" content="2016-08-28">
+              2016-08-28
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/技术/" itemprop="url" rel="index">
+                    <span itemprop="name">技术</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/08/28/dp-behaviour-chain/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/28/dp-behaviour-chain/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="职责链模式"><a href="#职责链模式" class="headerlink" title="职责链模式"></a>职责链模式</h2><h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><p>&nbsp;&nbsp;避免请求发送者与接收者耦合在一起，让多个对象都有可能接收请求，将这些对象连接成一条链，并且沿着这条链传递请求，直到有对象处理它为止。职责链模式是一种对象行为型模式。</p>
+<h3 id="角色分析"><a href="#角色分析" class="headerlink" title="角色分析"></a>角色分析</h3><ul>
+<li>Handler（抽象处理者）：它定义了一个处理请求的接口，一般设计为抽象类，由于不同的具体处理者处理请求的方式不同，因此在其中定义了抽象请求处理方法。因为每一个处理者的下家还是一个处理者，因此在抽象处理者中定义了一个抽象处理者类型的对象（如结构图中的successor），作为其对下家的引用。通过该引用，处理者可以连成一条链。</li>
+<li>ConcreteHandler（具体处理者）：它是抽象处理者的子类，可以处理用户请求，在具体处理者类中实现了抽象处理者中定义的抽象请求处理方法，在处理请求之前需要进行判断，看是否有相应的处理权限，如果可以处理请求就处理它，否则将请求转发给后继者；在具体处理者中可以访问链中下一个对象，以便请求的转发。<h3 id="UML图"><a href="#UML图" class="headerlink" title="UML图"></a>UML图</h3><img src="http://oa5ova13h.bkt.clouddn.com/chain_classic.png" alt="命令模式"><h3 id="典型代码"><a href="#典型代码" class="headerlink" title="典型代码"></a>典型代码</h3>抽象处理者：Handler<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Handler</span> </span>&#123;  </span><br><span class="line"><span class="comment">//维持对下家的引用  </span></span><br><span class="line">    <span class="keyword">protected</span> Handler successor;  </span><br><span class="line">    </span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setSuccessor</span><span class="params">(Handler successor)</span> </span>&#123;  </span><br><span class="line">            <span class="keyword">this</span>.successor=successor;  </span><br><span class="line">        &#125;  </span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">handleRequest</span><span class="params">(String request)</span></span>;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>具体处理者：ConcreteHandler<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ConcreteHandler</span> <span class="keyword">extends</span> <span class="title">Handler</span> </span>&#123;  </span><br><span class="line">     <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">handleRequest</span><span class="params">(String request)</span> </span>&#123;  </span><br><span class="line">         <span class="keyword">if</span> (请求满足条件) &#123;  </span><br><span class="line">             <span class="comment">//处理请求  </span></span><br><span class="line">         &#125;  </span><br><span class="line">         <span class="keyword">else</span> &#123;  </span><br><span class="line">             <span class="keyword">this</span>.successor.handleRequest(request);  <span class="comment">//转发请求  </span></span><br><span class="line">         &#125;  </span><br><span class="line">     &#125;  </span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="示例UML图"><a href="#示例UML图" class="headerlink" title="示例UML图"></a>示例UML图</h3><p><img src="http://oa5ova13h.bkt.clouddn.com/chain_example.png" alt=""></p>
+<h3 id="示例代码"><a href="#示例代码" class="headerlink" title="示例代码"></a>示例代码</h3><p>&nbsp;&nbsp;下面示例中，、通过TVController控制TV换台，中间的命令类是TVNextCommand和TVPreviousCommand。<br>请求处理类：RequestHandler<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">RequestHandler</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> RequestHandler next;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">RequestHandler</span><span class="params">(RequestHandler requestHandler)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.next = requestHandler;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">handleRequest</span><span class="params">(Request request)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (next!=<span class="keyword">null</span>) &#123;</span><br><span class="line">            printHanding(request);</span><br><span class="line">            request.handled();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">printHanding</span><span class="params">(Request request)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="keyword">this</span> + <span class="string">" handle "</span> + request);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> String <span class="title">toString</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>具体处理类：Employee<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Employee</span> <span class="keyword">extends</span> <span class="title">RequestHandler</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Employee</span><span class="params">(RequestHandler requestHandler)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>(requestHandler);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"Employee"</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">handleRequest</span><span class="params">(Request request)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (request.getRequestType() == RequestType.DISTRIBUTION_LEVEL_C) &#123;</span><br><span class="line">            printHanding(request);</span><br><span class="line">            request.handled();</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;          </span><br><span class="line">            <span class="keyword">super</span>.handleRequest(request);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>具体处理类：Boss<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Boss</span> <span class="keyword">extends</span> <span class="title">RequestHandler</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Boss</span><span class="params">(RequestHandler requestHandler)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>(requestHandler);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"boss"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">handleRequest</span><span class="params">(Request request)</span> </span>&#123;</span><br><span class="line">        request.handled();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>具体处理类：Manager<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Manager</span> <span class="keyword">extends</span> <span class="title">RequestHandler</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Manager</span><span class="params">(RequestHandler requestHandler)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>(requestHandler);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"manager"</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">handleRequest</span><span class="params">(Request request)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (request.getRequestType() == RequestType.DISTRIBUTION_LEVEL_B) &#123;</span><br><span class="line">            printHanding(request);</span><br><span class="line">            request.handled();</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">super</span>.handleRequest(request);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>请求：Request<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Request</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String description;</span><br><span class="line">    <span class="keyword">private</span> RequestType requestType;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">boolean</span> isHandled;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">handled</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        isHandled = <span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Request</span><span class="params">(RequestType requestType, String description)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>();</span><br><span class="line">        <span class="keyword">this</span>.requestType = requestType;</span><br><span class="line">        <span class="keyword">this</span>.description = description;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> RequestType <span class="title">getRequestType</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> requestType;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> requestType + <span class="string">" description:"</span> + description;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>请求类型：RequestType<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">enum</span> RequestType &#123;</span><br><span class="line"></span><br><span class="line">    DISTRIBUTION_LEVEL_A(<span class="string">"distribution level a"</span>), DISTRIBUTION_LEVEL_B(<span class="string">"    distribution level b"</span>), DISTRIBUTION_LEVEL_C(</span><br><span class="line">            <span class="string">"distribution level c"</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> String title;</span><br><span class="line"></span><br><span class="line">    RequestType(String title) &#123;</span><br><span class="line">        <span class="keyword">this</span>.title = title;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> title;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>客户端：App<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">App</span> </span>&#123;</span><br><span class="line">     <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">         RequestHandler boss = <span class="keyword">new</span> Boss(<span class="keyword">null</span>);</span><br><span class="line">         RequestHandler mangaer = <span class="keyword">new</span> Manager(boss);</span><br><span class="line">         RequestHandler employee = <span class="keyword">new</span> Employee(mangaer);</span><br><span class="line">         Request request1 = <span class="keyword">new</span> Request(RequestType.DISTRIBUTION_LEVEL_A, <span class="string">"A"</span>);</span><br><span class="line">         Request request2 = <span class="keyword">new</span> Request(RequestType.DISTRIBUTION_LEVEL_B, <span class="string">"B"</span>);</span><br><span class="line">         Request request3 = <span class="keyword">new</span> Request(RequestType.DISTRIBUTION_LEVEL_C, <span class="string">"C"</span>);</span><br><span class="line">         employee.handleRequest(request1);</span><br><span class="line">         employee.handleRequest(request2);</span><br><span class="line">         employee.handleRequest(request3);</span><br><span class="line">     &#125;</span><br><span class="line"> </span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h3><ul>
+<li>职责链模式使得一个对象无须知道是其他哪一个对象处理其请求，对象仅需知道该请求会被处理即可，接收者和发送者都没有对方的明确信息，且链中的对象不需要知道链的结构，由客户端负责链的创建，降低了系统的耦合度。</li>
+<li>请求处理对象仅需维持一个指向其后继者的引用，而不需要维持它对所有的候选处理者的引用，可简化对象的相互连接。</li>
+<li>在给对象分派职责时，职责链可以给我们更多的灵活性，可以通过在运行时对该链进行动态的增加或修改来增加或改变处理一个请求的职责。</li>
+<li>在系统中增加一个新的具体请求处理者时无须修改原有系统的代码，只需要在客户端重新建链即可，从这一点来看是符合“开闭原则”的。<h3 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h3></li>
+<li>由于一个请求没有明确的接收者，那么就不能保证它一定会被处理，该请求可能一直到链的末端都得不到处理；一个请求也可能因职责链没有被正确配置而得不到处理。</li>
+<li>对于比较长的职责链，请求的处理可能涉及到多个处理对象，系统性能将受到一定影响，而且在进行代码调试时不太方便。</li>
+<li>如果建链不当，可能会造成循环调用，将导致系统陷入死循环。<h3 id="适用环境"><a href="#适用环境" class="headerlink" title="适用环境"></a>适用环境</h3></li>
+<li>有多个对象可以处理同一个请求，具体哪个对象处理该请求待运行时刻再确定，客户端只需将请求提交到链上，而无须关心请求的处理对象是谁以及它是如何处理的。</li>
+<li>在不明确指定接收者的情况下，向多个对象中的一个提交一个请求。</li>
+<li>可动态指定一组对象处理请求，客户端可以动态创建职责链来处理请求，还可以改变链中处理者之间的先后次序。</li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/08/28/dp-behaviour-command/" itemprop="url">
                   设计模式-行为型-命令模式(Command Pattern)
                 </a>
@@ -318,7 +464,7 @@
       
         
           
-            <h2 id="观察者模式"><a href="#观察者模式" class="headerlink" title="观察者模式"></a>观察者模式</h2><h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><p>&nbsp;&nbsp;将一个请求封装为一个对象，从而让我们可用不同的请求对客户进行参数化；对请求排队或者记录请求日志，以及支持可撤销的操作。命令模式是一种对象行为型模式，其别名为动作(Action)模式或事务(Transaction)模式。</p>
+            <h2 id="命令模式"><a href="#命令模式" class="headerlink" title="命令模式"></a>命令模式</h2><h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><p>&nbsp;&nbsp;将一个请求封装为一个对象，从而让我们可用不同的请求对客户进行参数化；对请求排队或者记录请求日志，以及支持可撤销的操作。命令模式是一种对象行为型模式，其别名为动作(Action)模式或事务(Transaction)模式。</p>
 <h3 id="角色分析"><a href="#角色分析" class="headerlink" title="角色分析"></a>角色分析</h3><ul>
 <li>Command（抽象命令类）：抽象命令类一般是一个抽象类或接口，在其中声明了用于执行请求的execute()等方法，通过这些方法可以调用请求接收者的相关操作。</li>
 <li>ConcreteCommand（具体命令类）：具体命令类是抽象命令类的子类，实现了在抽象命令类中声明的方法，它对应具体的接收者对象，将接收者对象的动作绑定其中。在实现execute()方法时，将调用接收者对象的相关操作(Action)。</li>
@@ -466,7 +612,7 @@
       
         
           
-            <h2 id="观察者模式"><a href="#观察者模式" class="headerlink" title="观察者模式"></a>观察者模式</h2><h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><p>&nbsp;&nbsp;定义对象之间的一种一对多依赖关系，使得每当一个对象状态发生改变时，其相关依赖对象皆得到通知并被自动更新。观察者模式的别名包括发布-订阅（Publish/Subscribe）模式、模型-视图（Model/View）模式、源-监听器（Source/Listener）模式或从属者（Dependents）模式。</p>
+            <h2 id="观察者模式"><a href="#观察者模式" class="headerlink" title="观察者模式"></a>观察者模式</h2><h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><p>&nbsp;&nbsp;义对象之间的一种一对多依赖关系，使得每当一个对象状态发生改变时，其相关依赖对象皆得到通知并被自动更新。观察者模式的别名包括发布-订阅（Publish/Subscribe）模式、模型-视图（Model/View）模式、源-监听器（Source/Listener）模式或从属者（Dependents）模式。</p>
 <h3 id="角色分析"><a href="#角色分析" class="headerlink" title="角色分析"></a>角色分析</h3><ul>
 <li>Subject（目标）：目标又称为主题，它是指被观察的对象。在目标中定义了一个观察者集合，一个观察目标可以接受任意数量的观察者来观察，它提供一系列方法来增加和删除观察者对象，同时它定义了通知方法notify()。目标类可以是接口，也可以是抽象类或具体类。</li>
 <li>ConcreteSubject（具体目标）：具体目标是目标类的子类，通常它包含有经常发生改变的数据，当它的状态发生改变时，向它的各个观察者发出通知；同时它还实现了在目标类中定义的抽象业务逻辑方法（如果有的话）。如果无须扩展目标类，则具体目标类可以省略。</li>
@@ -623,7 +769,7 @@
       
         
           
-            <h2 id="观察者模式"><a href="#观察者模式" class="headerlink" title="观察者模式"></a>观察者模式</h2><h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><p>&nbsp;&nbsp;义对象之间的一种一对多依赖关系，使得每当一个对象状态发生改变时，其相关依赖对象皆得到通知并被自动更新。观察者模式的别名包括发布-订阅（Publish/Subscribe）模式、模型-视图（Model/View）模式、源-监听器（Source/Listener）模式或从属者（Dependents）模式。</p>
+            <h2 id="观察者模式"><a href="#观察者模式" class="headerlink" title="观察者模式"></a>观察者模式</h2><h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><p>&nbsp;&nbsp;定义对象之间的一种一对多依赖关系，使得每当一个对象状态发生改变时，其相关依赖对象皆得到通知并被自动更新。观察者模式的别名包括发布-订阅（Publish/Subscribe）模式、模型-视图（Model/View）模式、源-监听器（Source/Listener）模式或从属者（Dependents）模式。</p>
 <h3 id="角色分析"><a href="#角色分析" class="headerlink" title="角色分析"></a>角色分析</h3><ul>
 <li>Subject（目标）：目标又称为主题，它是指被观察的对象。在目标中定义了一个观察者集合，一个观察目标可以接受任意数量的观察者来观察，它提供一系列方法来增加和删除观察者对象，同时它定义了通知方法notify()。目标类可以是接口，也可以是抽象类或具体类。</li>
 <li>ConcreteSubject（具体目标）：具体目标是目标类的子类，通常它包含有经常发生改变的数据，当它的状态发生改变时，向它的各个观察者发出通知；同时它还实现了在目标类中定义的抽象业务逻辑方法（如果有的话）。如果无须扩展目标类，则具体目标类可以省略。</li>
@@ -1564,156 +1710,11 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/08/14/dp-structural-adapter/" itemprop="url">
-                  设计模式-结构型-适配器模式(Adapter Pattern)
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-08-14T19:24:00+08:00" content="2016-08-14">
-              2016-08-14
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/技术/" itemprop="url" rel="index">
-                    <span itemprop="name">技术</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/08/14/dp-structural-adapter/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/14/dp-structural-adapter/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="适配器模式"><a href="#适配器模式" class="headerlink" title="适配器模式"></a>适配器模式</h2><h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><p>&nbsp;&nbsp;将一个接口转换成客户希望的另一个接口，适配器模式使接口不兼容的那些类可以一起工作，其别名为包装器(Wrapper)。适配器模式既可以作为类结构型模式，也可以作为对象结构型模式。但是在实际应用中，由于Java不支持多继承，所以多使用对象适配器模式。</p>
-<h3 id="角色分析"><a href="#角色分析" class="headerlink" title="角色分析"></a>角色分析</h3><ul>
-<li>Target（目标抽象类）：目标抽象类定义客户所需接口，可以是一个抽象类或接口，也可以是具体类。</li>
-<li>Adapter（适配器类）：适配器可以调用另一个接口，作为一个转换器，对Adaptee和Target进行适配，适配器类是适配器模式的核心，在对象适配器中，它通过继承Target并关联一个Adaptee对象使二者产生联系。适配器类与适配者类是关联关系（也可称之为委派关系）。</li>
-<li>Adaptee（适配者类）：适配者即被适配的角色，它定义了一个已经存在的接口，这个接口需要适配，适配者类一般是一个具体类，包含了客户希望使用的业务方法，在某些情况下可能没有适配者类的源代码。</li>
-</ul>
-<h3 id="UML图"><a href="#UML图" class="headerlink" title="UML图"></a>UML图</h3><p><img src="http://oa5ova13h.bkt.clouddn.com/adapter_classic.png" alt="适配器模式"></p>
-<h3 id="典型代码"><a href="#典型代码" class="headerlink" title="典型代码"></a>典型代码</h3><p>目标接口:Target<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Target</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">request</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>适配器类:Adapter<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Adapter</span> <span class="keyword">extends</span> <span class="title">Target</span> </span>&#123;  </span><br><span class="line">    <span class="keyword">private</span> Adaptee adaptee; <span class="comment">//维持一个对适配者对象的引用  </span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Adapter</span><span class="params">(Adaptee adaptee)</span> </span>&#123;  </span><br><span class="line">        <span class="keyword">this</span>.adaptee=adaptee;  </span><br><span class="line">    &#125;  </span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">request</span><span class="params">()</span> </span>&#123;  </span><br><span class="line">        adaptee.specificRequest(); <span class="comment">//转发调用  </span></span><br><span class="line">    &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>适配者类：Adaptee<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Adaptee</span> </span>&#123;</span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">specificRequest</span><span class="params">()</span></span>&#123;</span><br><span class="line">       <span class="comment">//....</span></span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h3 id="示例UML图"><a href="#示例UML图" class="headerlink" title="示例UML图"></a>示例UML图</h3><p><img src="http://oa5ova13h.bkt.clouddn.com/adapter_example.png" alt=""></p>
-<h3 id="示例代码"><a href="#示例代码" class="headerlink" title="示例代码"></a>示例代码</h3><p>目标接口:Weapon<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Weapon</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">attack</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="function">String <span class="title">name</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>适配器类:GunWeapon<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">GunWeapon</span> <span class="keyword">implements</span> <span class="title">Weapon</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> Gun gun;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">attack</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        gun.shot();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">name</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> gun.name();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">GunWeapon</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>();</span><br><span class="line">        <span class="keyword">this</span>.gun = <span class="keyword">new</span> Gun();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>适配者类：Gun<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Gun</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">     <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">shot</span><span class="params">()</span> </span>&#123;</span><br><span class="line">         System.out.println(<span class="string">"gun shot"</span>);</span><br><span class="line"> </span><br><span class="line">     &#125;</span><br><span class="line"> </span><br><span class="line">     <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">withSliencer</span><span class="params">()</span> </span>&#123;</span><br><span class="line">         System.out.println(<span class="string">"gun with sliencer"</span>);</span><br><span class="line">     &#125;</span><br><span class="line"> </span><br><span class="line">     <span class="function"><span class="keyword">public</span> String <span class="title">name</span><span class="params">()</span> </span>&#123;</span><br><span class="line">         <span class="keyword">return</span> <span class="string">"Gun"</span>;</span><br><span class="line">     &#125;</span><br><span class="line"></span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure></p>
-<p>客户端：APP<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">App</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Weapon weapon = <span class="keyword">new</span> GunWeapon();</span><br><span class="line">        weapon.attack();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h3 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h3><ul>
-<li>将目标类和适配者类解耦，通过引入一个适配器类来重用现有的适配者类，而无须修改原有代码。</li>
-<li>增加了类的透明性和复用性，将具体的实现封装在适配者类中，对于客户端类来说是透明的，而且提高了适配者的复用性。</li>
-<li>灵活性和扩展性都非常好，通过使用配置文件，可以很方便地更换适配器，也可以在不修改原有代码的基础上增加新的适配器类，完全符合“开闭原则”。</li>
-<li>类适配器模式还具有如下优点：<br>由于适配器类是适配者类的子类，因此可以在适配器类中置换一些适配者的方法，使得适配器的灵活性更强。</li>
-<li>对象适配器模式还具有如下优点：<br>一个对象适配器可以把多个不同的适配者适配到同一个目标，也就是说，同一个适配器可以把适配者类和它的子类都适配到目标接口。<h3 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h3></li>
-<li>类适配器模式的缺点如下：<br>对于Java、C#等不支持多重继承的语言，一次最多只能适配一个适配者类，而且目标抽象类只能为抽象类，不能为具体类，其使用有一定的局限性，不能将一个适配者类和它的子类都适配到目标接口。</li>
-<li>对象适配器模式的缺点如下：<br>与类适配器模式相比，要想置换适配者类的方法就不容易。如果一定要置换掉适配者类的一个或多个方法，就只好先做一个适配者类的子类，将适配者类的方法置换掉，然后再把适配者类的子类当做真正的适配者进行适配，实现过程较为复杂。<h3 id="适用环境"><a href="#适用环境" class="headerlink" title="适用环境"></a>适用环境</h3></li>
-<li>系统需要使用现有的类，而这些类的接口不符合系统的需要。</li>
-<li>想要建立一个可以重复使用的类，用于与一些彼此之间没有太大关联的一些类，包括一些可能在将来引进的类一起工作。</li>
-</ul>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1754,7 +1755,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">20</span>
+              <span class="site-state-item-count">21</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
