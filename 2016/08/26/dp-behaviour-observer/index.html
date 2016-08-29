@@ -84,25 +84,25 @@
 
 
 
-<meta name="description" content="观察者模式概述&amp;nbsp;&amp;nbsp;定义对象之间的一种一对多依赖关系，使得每当一个对象状态发生改变时，其相关依赖对象皆得到通知并被自动更新。观察者模式的别名包括发布-订阅（Publish/Subscribe）模式、模型-视图（Model/View）模式、源-监听器（Source/Listener）模式或从属者（Dependents）模式。
+<meta name="description" content="观察者模式概述&amp;nbsp;&amp;nbsp;义对象之间的一种一对多依赖关系，使得每当一个对象状态发生改变时，其相关依赖对象皆得到通知并被自动更新。观察者模式的别名包括发布-订阅（Publish/Subscribe）模式、模型-视图（Model/View）模式、源-监听器（Source/Listener）模式或从属者（Dependents）模式。
 角色分析
-Subject（目标）：目标又称为主题，它是指">
+Subject（目标）：目标又称为主题，它是指被">
 <meta property="og:type" content="article">
 <meta property="og:title" content="设计模式-行为型-观察者模式(Observer Pattern)">
 <meta property="og:url" content="https://yoursite.com/2016/08/26/dp-behaviour-observer/index.html">
 <meta property="og:site_name" content="AaronChan Blog">
-<meta property="og:description" content="观察者模式概述&amp;nbsp;&amp;nbsp;定义对象之间的一种一对多依赖关系，使得每当一个对象状态发生改变时，其相关依赖对象皆得到通知并被自动更新。观察者模式的别名包括发布-订阅（Publish/Subscribe）模式、模型-视图（Model/View）模式、源-监听器（Source/Listener）模式或从属者（Dependents）模式。
+<meta property="og:description" content="观察者模式概述&amp;nbsp;&amp;nbsp;义对象之间的一种一对多依赖关系，使得每当一个对象状态发生改变时，其相关依赖对象皆得到通知并被自动更新。观察者模式的别名包括发布-订阅（Publish/Subscribe）模式、模型-视图（Model/View）模式、源-监听器（Source/Listener）模式或从属者（Dependents）模式。
 角色分析
-Subject（目标）：目标又称为主题，它是指">
+Subject（目标）：目标又称为主题，它是指被">
 <meta property="og:image" content="http://oa5ova13h.bkt.clouddn.com/observer_classic.png">
 <meta property="og:image" content="http://oa5ova13h.bkt.clouddn.com/observer_example_standard.png">
 <meta property="og:image" content="http://oa5ova13h.bkt.clouddn.com/observer_example_genic.png">
-<meta property="og:updated_time" content="2016-08-28T14:24:23.938Z">
+<meta property="og:updated_time" content="2016-08-26T16:22:54.311Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="设计模式-行为型-观察者模式(Observer Pattern)">
-<meta name="twitter:description" content="观察者模式概述&amp;nbsp;&amp;nbsp;定义对象之间的一种一对多依赖关系，使得每当一个对象状态发生改变时，其相关依赖对象皆得到通知并被自动更新。观察者模式的别名包括发布-订阅（Publish/Subscribe）模式、模型-视图（Model/View）模式、源-监听器（Source/Listener）模式或从属者（Dependents）模式。
+<meta name="twitter:description" content="观察者模式概述&amp;nbsp;&amp;nbsp;义对象之间的一种一对多依赖关系，使得每当一个对象状态发生改变时，其相关依赖对象皆得到通知并被自动更新。观察者模式的别名包括发布-订阅（Publish/Subscribe）模式、模型-视图（Model/View）模式、源-监听器（Source/Listener）模式或从属者（Dependents）模式。
 角色分析
-Subject（目标）：目标又称为主题，它是指">
+Subject（目标）：目标又称为主题，它是指被">
 <meta name="twitter:image" content="http://oa5ova13h.bkt.clouddn.com/observer_classic.png">
 
 
@@ -322,7 +322,7 @@ Subject（目标）：目标又称为主题，它是指">
       
 
       
-        <h2 id="观察者模式"><a href="#观察者模式" class="headerlink" title="观察者模式"></a>观察者模式</h2><h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><p>&nbsp;&nbsp;定义对象之间的一种一对多依赖关系，使得每当一个对象状态发生改变时，其相关依赖对象皆得到通知并被自动更新。观察者模式的别名包括发布-订阅（Publish/Subscribe）模式、模型-视图（Model/View）模式、源-监听器（Source/Listener）模式或从属者（Dependents）模式。</p>
+        <h2 id="观察者模式"><a href="#观察者模式" class="headerlink" title="观察者模式"></a>观察者模式</h2><h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><p>&nbsp;&nbsp;义对象之间的一种一对多依赖关系，使得每当一个对象状态发生改变时，其相关依赖对象皆得到通知并被自动更新。观察者模式的别名包括发布-订阅（Publish/Subscribe）模式、模型-视图（Model/View）模式、源-监听器（Source/Listener）模式或从属者（Dependents）模式。</p>
 <h3 id="角色分析"><a href="#角色分析" class="headerlink" title="角色分析"></a>角色分析</h3><ul>
 <li>Subject（目标）：目标又称为主题，它是指被观察的对象。在目标中定义了一个观察者集合，一个观察目标可以接受任意数量的观察者来观察，它提供一系列方法来增加和删除观察者对象，同时它定义了通知方法notify()。目标类可以是接口，也可以是抽象类或具体类。</li>
 <li>ConcreteSubject（具体目标）：具体目标是目标类的子类，通常它包含有经常发生改变的数据，当它的状态发生改变时，向它的各个观察者发出通知；同时它还实现了在目标类中定义的抽象业务逻辑方法（如果有的话）。如果无须扩展目标类，则具体目标类可以省略。</li>
@@ -398,8 +398,8 @@ Subject（目标）：目标又称为主题，它是指">
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2016/08/26/dp-behaviour-observer/" rel="prev" title="设计模式-行为型-观察者模式(Observer Pattern)">
-                设计模式-行为型-观察者模式(Observer Pattern) <i class="fa fa-chevron-right"></i>
+              <a href="/2016/08/28/dp-behaviour-command/" rel="prev" title="设计模式-行为型-命令模式(Command Pattern)">
+                设计模式-行为型-命令模式(Command Pattern) <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
