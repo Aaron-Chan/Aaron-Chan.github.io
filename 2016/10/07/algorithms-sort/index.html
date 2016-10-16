@@ -1,0 +1,685 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="算法," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="前言&amp;nbsp;&amp;nbsp;最近在重新学习算法，以加深对算法及数据结构的理解，从而在工作中能够根据需求和场景选择合适的算法和数据结构，提升代码的质量和水平。
+内容2.1 初级排序&amp;nbsp;&amp;nbsp;
+2.1.1.2 运行时间排序成本的模型：主要是 比较 和 交换。对于不需要比较的算法，计算其 访问数组的次数。
+2.1.2 选择排序
+思路：在数组中找到 最小的元素 然后与数组第一个元素交换，再次">
+<meta property="og:type" content="article">
+<meta property="og:title" content="《算法》读书笔记-排序">
+<meta property="og:url" content="https://yoursite.com/2016/10/07/algorithms-sort/index.html">
+<meta property="og:site_name" content="AaronChan Blog">
+<meta property="og:description" content="前言&amp;nbsp;&amp;nbsp;最近在重新学习算法，以加深对算法及数据结构的理解，从而在工作中能够根据需求和场景选择合适的算法和数据结构，提升代码的质量和水平。
+内容2.1 初级排序&amp;nbsp;&amp;nbsp;
+2.1.1.2 运行时间排序成本的模型：主要是 比较 和 交换。对于不需要比较的算法，计算其 访问数组的次数。
+2.1.2 选择排序
+思路：在数组中找到 最小的元素 然后与数组第一个元素交换，再次">
+<meta property="og:updated_time" content="2016-10-16T08:59:56.430Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="《算法》读书笔记-排序">
+<meta name="twitter:description" content="前言&amp;nbsp;&amp;nbsp;最近在重新学习算法，以加深对算法及数据结构的理解，从而在工作中能够根据需求和场景选择合适的算法和数据结构，提升代码的质量和水平。
+内容2.1 初级排序&amp;nbsp;&amp;nbsp;
+2.1.1.2 运行时间排序成本的模型：主要是 比较 和 交换。对于不需要比较的算法，计算其 访问数组的次数。
+2.1.2 选择排序
+思路：在数组中找到 最小的元素 然后与数组第一个元素交换，再次">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="https://yoursite.com/2016/10/07/algorithms-sort/"/>
+
+  <title> 《算法》读书笔记-排序 | AaronChan Blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?51f0c6f8829e2634ec8f9bfc8220f514";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">AaronChan Blog</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">陈晓城</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                《算法》读书笔记-排序
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-10-07T19:00:00+08:00" content="2016-10-07">
+              2016-10-07
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/技术/" itemprop="url" rel="index">
+                    <span itemprop="name">技术</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/10/07/algorithms-sort/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/10/07/algorithms-sort/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>&nbsp;&nbsp;最近在重新学习算法，以加深对算法及数据结构的理解，从而在工作中能够根据需求和场景选择合适的算法和数据结构，提升代码的质量和水平。</p>
+<h1 id="内容"><a href="#内容" class="headerlink" title="内容"></a>内容</h1><h2 id="2-1-初级排序"><a href="#2-1-初级排序" class="headerlink" title="2.1 初级排序"></a>2.1 初级排序</h2><p>&nbsp;&nbsp;</p>
+<h3 id="2-1-1-2-运行时间"><a href="#2-1-1-2-运行时间" class="headerlink" title="2.1.1.2 运行时间"></a>2.1.1.2 运行时间</h3><p>排序成本的模型：主要是 <strong><em>比较</em></strong> 和 <strong><em>交换</em></strong>。对于不需要比较的算法，计算其 <strong>访问数组的次数</strong>。</p>
+<h3 id="2-1-2-选择排序"><a href="#2-1-2-选择排序" class="headerlink" title="2.1.2 选择排序"></a>2.1.2 选择排序</h3><ol>
+<li>思路：在数组中找到 <strong><em>最小的元素</em></strong> 然后与数组第一个元素交换，再次找到 <em>剩下元素中最小的元素</em>，如此往复，直到将整个数组排序。</li>
+<li><p>代码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">sort</span><span class="params">(Comparable[] a)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> N = a.length;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; N; i++)&#123;</span><br><span class="line">        <span class="keyword">int</span> min = i;</span><br><span class="line">        <span class="keyword">for</span>(j = i+<span class="number">1</span>; j&lt; N; j++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(less(a[j], a[min] ))min = j;</span><br><span class="line">        &#125;</span><br><span class="line">        exch(a, i, min);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>对于长度为N的数组，选择排序需要 <strong><em>N2/2次比较</em></strong>和 <strong><em>N次交换</em></strong></p>
+</li>
+</ol>
+<h3 id="2-1-3-插入排序"><a href="#2-1-3-插入排序" class="headerlink" title="2.1.3 插入排序"></a>2.1.3 插入排序</h3><ol>
+<li>思路：将元素插入已经排序的部分有序数组中，在插入位置之后的数组元素向后移动。其需要时间取决于数组的元素的初始排序。</li>
+<li><p>代码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">sort</span><span class="params">(Comparable[] a)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> N = a.length;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; N; i++) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = i+<span class="number">1</span>; j &gt;  <span class="number">0</span>; j--) &#123;</span><br><span class="line">            <span class="keyword">if</span> (less(a[j], a[j-<span class="number">1</span>])) &#123;</span><br><span class="line">                exch(a[j], a[j-<span class="number">1</span>]);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>成本：平均需要~N2/4比较和~N2/4排序。最坏是~N2/2比较和~N2/2交换。最好情况需要N-1比较和0次交换</p>
+</li>
+<li>规律： 插入排序需要的 <strong><em>交换操作</em></strong> 和数组中 <strong><em>倒置</em></strong>的数量 <strong><em>相同</em></strong>，需要的比较次数大于等于倒置的数量，小于等于倒置的数量加上数组的大小再减一。</li>
+<li>选择排序和插入排序的时间都是 <strong><em>平方级别</em></strong>的。</li>
+</ol>
+<h3 id="2-1-6希尔排序"><a href="#2-1-6希尔排序" class="headerlink" title="2.1.6希尔排序"></a>2.1.6希尔排序</h3><ol>
+<li>思路：希尔排序是基于插入排序做改进。<br>使数组中任意相隔为h的元素都是有序的，一个 <em>h有序</em>的数组就是 <em>h个相互独立的有序数组</em> 编织在一起组成的一个数组。</li>
+<li><p>代码:此为升序排序</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">sort</span><span class="params">(Comparable[] a)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> N = a.length;</span><br><span class="line">    <span class="keyword">int</span> h =<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span> (h &lt; N/<span class="number">3</span>) h = <span class="number">3</span>*h + <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span> (h &gt;= <span class="number">1</span>)&#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; N;i++) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = i+h; j&gt;= h &amp;&amp; less(a[j], a[j-h]);j- = h) &#123;</span><br><span class="line">                exch(a, j, j-h);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        h = h/<span class="number">3</span>;</span><br><span class="line">    &#125;                                             </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>成本：此算法在最坏情况下的比较次数和 <strong><em>N3/2</em></strong>成正比。希尔排序的运行时间突破了 <strong><em>平方级别</em></strong>。因为接下来的算法虽然比希尔排序高效，但是更复杂，所以<strong><em>先用希尔排序</em></strong>，再根据实际情况进行优化或者替代。</p>
+<h2 id="2-2-归并排序"><a href="#2-2-归并排序" class="headerlink" title="2.2 归并排序"></a>2.2 归并排序</h2></li>
+<li>思路：将数组分成两半进行排序，然后再归并到一起。如此递归，最终将数组排序。这种分治的思想有 <strong><em>自顶向下</em></strong>和 <strong><em>自底向上</em></strong>两种解决的方法。</li>
+<li>代码：<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//这个只有在lo hi相差1的时候才能保证merge的结果是有序的，所以到采用分治的思想</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">merge</span><span class="params">(Comparable[] a, <span class="keyword">int</span> lo, <span class="keyword">int</span> mid, <span class="keyword">int</span> hi)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> i = lo;</span><br><span class="line">    <span class="keyword">int</span> j = mid+<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> k = lo;k &lt;= hi;k++) &#123;</span><br><span class="line">        aux[k] = a[k];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> k = lo; k &lt;= hi; k++)&#123;</span><br><span class="line">        <span class="keyword">if</span> (i &gt; mid) a[k] = aux[j++];</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (j &gt; h ) a[k] = aux[i++];</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (less(a[i], a[j])) a[k] = a[i++];</span><br><span class="line">        <span class="keyword">else</span> a[k] = a[j++];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>自顶向下的代码：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">sort</span> <span class="params">(Comparable[] a, <span class="keyword">int</span> lo, <span class="keyword">int</span> hi)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (lo &gt;= hi)<span class="keyword">return</span> ;</span><br><span class="line">    <span class="keyword">int</span> mid = lo + (hi -lo)/<span class="number">2</span>;</span><br><span class="line">    sort(a, lo, mid);</span><br><span class="line">    sort(a, mid+<span class="number">1</span>, hi);</span><br><span class="line">    merge(a, lo, mid, hi);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>自底向上的代码：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">sort</span><span class="params">(Comparable[] a)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> N = a.length;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> sz = <span class="number">1</span>; sz &lt; N; sz+=sz)&#123;<span class="comment">//子数组的大小</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> lo = <span class="number">0</span>; lo &lt; N-sz; lo+=sz+sz)&#123;</span><br><span class="line">            merge (lo, lo+sz-<span class="number">1</span>, Math.min( (lo + sz + sz-<span class="number">1</span>) , (N-<span class="number">1</span>)) );</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<ol>
+<li>成本：时间与NlogN成正比；所需的额外空间和N成正比。需要 <strong><em>1/2NlgN至NlgN次比较</em></strong>，最多 <strong><em>6NlgN次访问</em></strong>。<h2 id="2-3-快速排序"><a href="#2-3-快速排序" class="headerlink" title="2.3 快速排序"></a>2.3 快速排序</h2></li>
+<li>思路：快速排序也是采用分治思想。其与归并排序是互补的。归并排序递归调用发生在处理整个数组 <em>之前</em>，快速排序发生在处理整个数组 <em>之后</em>。归并排序数组被分成两半，快速排序数组被 <em>切分</em>取决于数组的内容。</li>
+<li>代码：<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">sort</span><span class="params">(Comparable[] a, <span class="keyword">int</span> lo, <span class="keyword">int</span> hi)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (hi&lt;=lo)<span class="keyword">return</span>;</span><br><span class="line">    <span class="keyword">int</span> j = partition(a, lo, hi);<span class="comment">//找出切分的元素</span></span><br><span class="line">    sort(a, lo, j-<span class="number">1</span>);<span class="comment">//左边排序</span></span><br><span class="line">    sort(a, j+<span class="number">1</span>, hi);<span class="comment">//右边排序</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">partition</span><span class="params">(Comparable[] a, <span class="keyword">int</span> lo, <span class="keyword">int</span> hi)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> v = a[lo];</span><br><span class="line">    <span class="keyword">int</span> i = lo;</span><br><span class="line">    <span class="keyword">int</span> j =hi+<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span>(<span class="keyword">true</span>)&#123;</span><br><span class="line">        <span class="keyword">while</span>(less(a[++i],v))&#123;<span class="keyword">if</span>(i==hi)<span class="keyword">break</span>;&#125;</span><br><span class="line">        <span class="keyword">while</span>(less(v,a[--j]))&#123;<span class="keyword">if</span>(j==lo)<span class="keyword">break</span>;&#125;</span><br><span class="line">        <span class="keyword">if</span>(i&gt;=j)<span class="keyword">break</span>;</span><br><span class="line">        exah(a,i,j);</span><br><span class="line">    &#125;</span><br><span class="line">    exah(a,lo,j);</span><br><span class="line">    <span class="keyword">return</span> j;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol>
+<li><h2 id="2-4-优先队列"><a href="#2-4-优先队列" class="headerlink" title="2.4 优先队列"></a>2.4 优先队列</h2><h2 id="2-5-应用"><a href="#2-5-应用" class="headerlink" title="2.5 应用"></a>2.5 应用</h2></li>
+</ol>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/算法/" rel="tag">#算法</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/08/29/dp-behaviour-memento/" rel="next" title="设计模式-行为型-备忘录模式(Memento Pattern)">
+                <i class="fa fa-chevron-left"></i> 设计模式-行为型-备忘录模式(Memento Pattern)
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/10/07/algorithms-sort/"
+           data-title="《算法》读书笔记-排序" data-url="https://yoursite.com/2016/10/07/algorithms-sort/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/headicon.jpg"
+               alt="AaronChan" />
+          <p class="site-author-name" itemprop="name">AaronChan</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">29</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">分类</span>
+              
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/Aaron-Chan" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#内容"><span class="nav-number">2.</span> <span class="nav-text">内容</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-初级排序"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 初级排序</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-1-2-运行时间"><span class="nav-number">2.1.1.</span> <span class="nav-text">2.1.1.2 运行时间</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-2-选择排序"><span class="nav-number">2.1.2.</span> <span class="nav-text">2.1.2 选择排序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-3-插入排序"><span class="nav-number">2.1.3.</span> <span class="nav-text">2.1.3 插入排序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-6希尔排序"><span class="nav-number">2.1.4.</span> <span class="nav-text">2.1.6希尔排序</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-归并排序"><span class="nav-number">2.2.</span> <span class="nav-text">2.2 归并排序</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-3-快速排序"><span class="nav-number">2.3.</span> <span class="nav-text">2.3 快速排序</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-4-优先队列"><span class="nav-number">2.4.</span> <span class="nav-text">2.4 优先队列</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-5-应用"><span class="nav-number">2.5.</span> <span class="nav-text">2.5 应用</span></a></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">AaronChan</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"aaronchan"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+  
+
+
+
+
+
+
+  
+  
+  
+
+  
+
+  
+
+</body>
+</html>
