@@ -1,0 +1,719 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="第零章 计算机概论
+
+計算机：辅助人脑的好工具　　1.1 計算机硬件的五大单元1. 输入单元：鼠标、触摸板、键盘等
+2. 输出单元：显示器、打印机等
+3. cpu中的控制单元
+4. cpu中的算数逻辑单元
+5. 主内存
+　　1.2 CPU的种类1. 精简指令集（RISC）reduced instruction set computer
+    特点：指令简单，运行快，执行效果好。但是复杂需要多个指">
+<meta property="og:type" content="article">
+<meta property="og:title" content="AaronChan Blog">
+<meta property="og:url" content="https://yoursite.com/2016/11/22/linux-vbird-chapter-0/index.html">
+<meta property="og:site_name" content="AaronChan Blog">
+<meta property="og:description" content="第零章 计算机概论
+
+計算机：辅助人脑的好工具　　1.1 計算机硬件的五大单元1. 输入单元：鼠标、触摸板、键盘等
+2. 输出单元：显示器、打印机等
+3. cpu中的控制单元
+4. cpu中的算数逻辑单元
+5. 主内存
+　　1.2 CPU的种类1. 精简指令集（RISC）reduced instruction set computer
+    特点：指令简单，运行快，执行效果好。但是复杂需要多个指">
+<meta property="og:updated_time" content="2016-11-22T14:11:36.044Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="AaronChan Blog">
+<meta name="twitter:description" content="第零章 计算机概论
+
+計算机：辅助人脑的好工具　　1.1 計算机硬件的五大单元1. 输入单元：鼠标、触摸板、键盘等
+2. 输出单元：显示器、打印机等
+3. cpu中的控制单元
+4. cpu中的算数逻辑单元
+5. 主内存
+　　1.2 CPU的种类1. 精简指令集（RISC）reduced instruction set computer
+    特点：指令简单，运行快，执行效果好。但是复杂需要多个指">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="https://yoursite.com/2016/11/22/linux-vbird-chapter-0/"/>
+
+  <title>  | AaronChan Blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?51f0c6f8829e2634ec8f9bfc8220f514";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">AaronChan Blog</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">陈晓城</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-11-22T22:12:44+08:00" content="2016-11-22">
+              2016-11-22
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/11/22/linux-vbird-chapter-0/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/11/22/linux-vbird-chapter-0/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>第零章 计算机概论</p>
+<ol>
+<li>計算机：辅助人脑的好工具<br>　　1.1 計算机硬件的五大单元<pre><code>1. 输入单元：鼠标、触摸板、键盘等
+2. 输出单元：显示器、打印机等
+3. cpu中的控制单元
+4. cpu中的算数逻辑单元
+5. 主内存
+</code></pre>　　1.2 CPU的种类<pre><code>1. 精简指令集（RISC）reduced instruction set computer
+    特点：指令简单，运行快，执行效果好。但是复杂需要多个指令完成
+    应用：绝大部分手机
+2. 复杂指令集（CISC） complex instruction set computer
+    特点：每个小指令可以执行一些低阶的硬件操作，指令多且复杂，长度不一
+    应用：PC
+</code></pre>　　1.3 周边设备<br>　　1.4 运作流程<pre><code>1. cpu-大脑
+2. 主板-神经网络
+3. 各项周边设备-手脚皮肤
+4. 显卡：脑袋中的影像
+5. 硬盘：大脑的记忆区块。
+6. 主内存：与外界交互短暂保存的影像，***硬盘的数据需要转换到主内存中才能被CPU使用***
+</code></pre>　　1.5 計算机分类<pre><code>* 超级计算机(Supercomputer)
+* 大型计算机(Mainframe Computer)
+* 迷你计算机(Minicomputer)
+* 工作站(Workstation)
+* 微计算机(Microcomputer) 又可以称为个人计算机
+</code></pre>　　1.6 計算机上面常用的计算单位 (容量、速度等)<pre><code>1. bit:0/1 的单位我们称为bit
+2. byte: 1byte = 8bits
+3. 容量单位用二进制
+4. 速度单位用十进制：1GHz = 1000 * 1000 * 1000 Hz
+5. 带宽：Mbps Mbit per second 每秒多少Mbit。8M带宽=8Mbits/s = 1Mbytes/s上行和下行速度
+6. 硬盘用十进位的单位，所以500GByte代表为500*1000*1000*1000Byte之意。 转成档案的容量单位时使用二进位(1024为底)，所以就成为466GB左右的容量了
+7. 硬盘的最小物理量为512Bytes，最小的组成单位为磁区(sector)， 通常硬盘容量的计算采用『多少个sector』
+</code></pre></li>
+<li>个人计算机架构与周边设备<br>　　2.1 CPU： CPU的外频与倍频, 32位与64位, CPU等级<pre><code>0. PC的CPU架构：
+    * 北桥：负责连结速度较快的CPU、主内存与显示卡等组件；
+    * 南桥：负责连接速度较慢的周边介面， 包括硬盘、USB、网络卡等等。
+1. 多核是指一颗cpu封装多个运算核心
+2. 不同cpu的脚位不同，需要配套相应主板才能使用
+3. cpu的性能影响因素：*微指令集* 和 *频率*
+CPU频率为3.0GHz， 表示这颗CPU在一秒内可以进行3.0x109次工作
+4. 不同的CPU之间不能单纯的以频率来判断运算效能喔！这是因为每颗CPU的微指令集不相同，架构也不见得一样， 每次频率能够进行的工作指令数也不同之故！所以，频率目前仅能用来比较同款CPU的速度！
+5. 外频和倍频：外频指的是CPU与外部组件进行数据传输时的速度，倍频则是 CPU 内部用来加速工作效能的一个倍数， 两者相乘才是CPU的频率速度。我们以刚刚Intel Core 2 Duo E8400 CPU来说，他的频率是3.0GHz， 而外频是333MHz，因此倍频就是9倍罗！(3.0G=333Mx9, 其中1G=1000M)
+6. 32位和64位：指北桥的系统总线（前端系统总线）的频宽。
+7. 我们看到内存与北桥的频宽为12.8GBytes/s，亦即是1600MHz*64bits = 1600MHz*8Bytes = 12800MByes/s = 12.8GBytes/s
+8. CPU每次能够处理的数据量称为字长大小(word size)， 字长大小依据CPU的设计而有32位与64位。我们现在所称的计算机是32或64位主要是依据这个 CPU解析的字长大小而来的！
+9. 这也导致32位的CPU最多只能支持最大到4GBytes的内存。
+</code></pre>　　2.2 內存<pre><code>1. 所以，通常越大的内存代表越快速的系统，这是因为系统不用常常释放一些内存内部的数据。 以服务器来说，主内存的容量有时比CPU的速度还要来的重要的！
+2. 双通道：由於所有的数据都必须要存放在主内存，所以主内存的***数据宽度***当然是越大越好。 但传统的系统总线宽度一般大约仅达64位，为了要加大这个宽度，因此芯片组厂商就将两个主内存汇整在一起， 如果一支内存可达64位，两支内存就可以达到128位了，这就是双通道的设计理念。
+3. CPU频率与主内存的关系：理论上两者的外频应该 ***一致***
+4. CPU内部有第二层缓存(L2 cache)：就不需要北桥传输数据了。DRAM不能满足要求，此时就需要静态随机访问内存(Static Random Access Memory, SRAM)。但是其工艺成本高，不易做成大容量。
+5. ROM（只读内存）：BIOS(Basic Input Output System)是一套程序，这套程序是写死到主机板上面的一个内存芯片中， 这个内存芯片在没有通电时也能够将数据记录下来，那就是只读内存(Read Only Memory, ROM)。
+6. 
+</code></pre>　　2.3 显卡（VGA(Video Graphics Array)）：一般对於图形影像的显示重点在於<strong><em>解析度与色彩深度</em></strong>，因为每个图像显示的颜色会占用掉内存， 因此显示卡上面会有一个内存的容量，这个显示卡内存容量将会影响到最终你的萤幕解析度与色彩深度的喔！<br>　　2.4 硬盘与储存设备<pre><code>1. 简介：硬盘、软盘、MO、CD、DVD、磁带机、随身碟(快闪内存)、还有新一代的蓝光光驱等， 乃至於大型机器的区域网络储存设备(SAN, NAS)等等，都是可以用来储存数据的。而其中最常见的应该就是硬盘了吧！ 
+2. 在硬盘盒里面其实是由许许多多的圆形磁碟盘、机械手臂、 磁碟读取头与主轴马达所组成的
+3. 实际运作时， 主轴马达让磁碟盘转动，然后机械手臂可伸展让读取头在磁碟盘上头进行读写的动作。 
+4. 整个磁碟盘上头好像有多个同心圆绘制出的圆形图，而由圆心以放射状的方式分割出磁碟的最小储存单位，那就是磁区(Sector)， 在物理组成分面，每个磁区大小为512Bytes，这个值是不会改变的。而磁区组成一个圆就成为磁轨(track)， 如果是在多碟的硬盘上面，在所有磁碟盘上面的同一个磁轨可以组成一个磁柱(Cylinder)， 磁柱也是一般我们分割硬盘时的最小单位了！
+</code></pre>　　2.5 PCI介面卡<br>　　2.6 主机板<pre><code>CMOS与BIOS： CMOS主要的功能为记录主机板上面的重要参数， 包括系统时间、CPU电压与频率、各项设备的I/O位址与IRQ等，由於这些数据的记录要花费电力，因此主机板上面才有电池。 BIOS为写入到主机板上某一块 flash 或 EEPROM 的程序，他可以在开机的时候执行，以载入CMOS当中的参数， 并尝试呼叫储存装置中的开机程序，进一步进入操作系统当中。BIOS程序也可以修改CMOS中的数据， 每种主机板呼叫BIOS设定程序的按键都不同，一般桌上型计算机常见的是使用[del]按键进入BIOS设定画面。
+</code></pre>　　2.7 电源供应器<br>　　2.8 选购须知</li>
+<li>数据表示方式<br>　　3.1 数字系统<pre><code>1. 使用二进制。
+</code></pre>　　3.2 文字编码系统<pre><code>1. 既然计算机都只有记录0/1而已，甚至记录的数据都是使用byte/bit等单位来记录的，那么文字该如何记录啊？ 事实上文字档案也是被记录为0与1而已，而这个档案的内容要被取出来查阅时，必须要经过一个编码系统的处理才行。 所谓的『编码系统』可以想成是一个『字码对照表』
+2. 常用的英文编码表为***ASCII系统*** ，这个编码系统中， 每个符号(英文、数字或符号等)都会占用***1bytes***的记录， 因此总共会有28=256种变化。至於中文字当中的编码系统目前最常用的就是big5这个编码表了。 每个中文字会占用2bytes，理论上最多可以有216=65536
+3. 由国际组织ISO/IEC跳出来制订了所谓的Unicode编码系统， 我们常常称呼的UTF8或万国码的编码就是这个咚咚。
+</code></pre></li>
+<li>软件程序运作<br>　　4.1 机器程序与编译程序<pre><code>1. 机器码运行的缺点
+    需要了解机器语言：机器只认识0与1，因此你必须要学习直接写给机器看的语言！
+    需要了解所有硬件的相关功能函数
+    程序不具有可携性：每个CPU都有独特的微指令集，同样的，***每个硬件都有其功能函数***。 因此，你为A计算机写的程序，理论上是没有办法在B计算机上面运作的！而且程序码的修改非常困难！ 
+    程序具有专一性：因为这样的程序必须要针对硬件功能函数来撰写
+2. 高级程序语言编写完成通过编译器编译成机器码，解决了在不同计算机上运行的问题
+3. 但是读取数据写入内存，需要分配内存区间并定位，需要重复撰写控制码问题。这就有了操作系统（System Operation）的诞生。
+</code></pre>　　4.2 操作系统<pre><code>1. 操作系统核心(Kernel)
+    1. 定义：操作系统(Operating System, OS)其实也是一组程序， 这组程序的重点在於管理计算机的所有活动以及驱动系统中的所有硬件。
+    2. 那么操作系统的功能就是让CPU可以开始判断逻辑与运算数值、 让主内存可以开始载入/读出数据与程序码、让硬盘可以开始被存取、让网络卡可以开始传输数据、 让所有周边可以开始运转等等。总之，硬件的所有动作都必须要透过这个操作系统来达成就是了
+    3. 核心程序所放置到内存当中的区块是受保护的！ 并且开机后就一直常驻在内存当中。
+2. 系统呼叫(System Call)
+    计算机系统主要由硬件构成，然后核心程序主要在管理硬件，提供合理的计算机系统资源分配(包括CPU资源、内存使用资源等等)， 因此只要硬件不同(如x86架构与RISC架构的CPU)，核心就得要进行修改才行。 
+3. 在定义上，只要能够让计算机硬件正确无误的运作，那就算是操作系统了。所以说， 操作系统其实就是核心与其提供的介面工具，不过就如同上面讲的，因为最简单的核心缺乏了与使用者沟通的亲和介面， 所以在目前，一般我们提到的『操作系统』都会包含核心与相关的使用者应用软件呢！
+4. 基本概念：
+    操作系统是参照硬件的规格写成的
+    操作系统只是在管理整个硬件资源，包括CPU，内存，输入输出设备
+    应用程序都是参考OS提供的开发介面（接口）interface写成的。
+5. 核心功能：
+    1. 系统呼叫接口 system call interface
+    2. 程序管理 process control
+    3. 内存管理 memory management
+    4. 文件系统管理 filesystem management
+    5. 硬件驱动 device driver
+6. 驱动程序
+    1. 操作系统需要能驱动一个硬件，才能使用它
+    2. 一般来说，硬件厂商根据操作系统提供的接口和规范开发驱动程序并提供给消费者。
+</code></pre>　　4.3 应用程序</li>
+</ol>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/10/07/algorithms-sort/" rel="next" title="《算法》读书笔记-排序">
+                <i class="fa fa-chevron-left"></i> 《算法》读书笔记-排序
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/11/22/linux-vbird-chapter-0/"
+           data-title="" data-url="https://yoursite.com/2016/11/22/linux-vbird-chapter-0/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/headicon.jpg"
+               alt="AaronChan" />
+          <p class="site-author-name" itemprop="name">AaronChan</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">30</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">分类</span>
+              
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/Aaron-Chan" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <p class="post-toc-empty">此文章未包含目录</p>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">AaronChan</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"aaronchan"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+  
+
+
+
+
+
+
+  
+  
+  
+
+  
+
+  
+
+</body>
+</html>
