@@ -248,6 +248,187 @@
             
               
                 
+                <a class="post-title-link" href="/2016/11/24/linux-vbird-chapter-7/" itemprop="url">
+                  未命名
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-11-24T08:26:06+08:00" content="2016-11-24">
+              2016-11-24
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/11/24/linux-vbird-chapter-7/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/11/24/linux-vbird-chapter-7/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>title: 《鸟哥的私房菜》读书笔记-第七章、Linux 文件与目录管理<br>date: 2016-11-24 8:26:13<br>tags: [Linux,读书]<br>categories: 技术 </p>
+<h4 id="1-目录与路径"><a href="#1-目录与路径" class="headerlink" title="1. 目录与路径"></a>1. 目录与路径</h4><h5 id="1-1-相对路径与绝对路径"><a href="#1-1-相对路径与绝对路径" class="headerlink" title="1.1 相对路径与绝对路径"></a>1.1 相对路径与绝对路径</h5><pre><code>相对路径：./
+绝对路径: /xx/xx
+</code></pre><h5 id="1-2-目录的相关操作：-cd-pwd-mkdir-rmdir"><a href="#1-2-目录的相关操作：-cd-pwd-mkdir-rmdir" class="headerlink" title="1.2 目录的相关操作： cd, pwd, mkdir, rmdir"></a>1.2 目录的相关操作： cd, pwd, mkdir, rmdir</h5><pre><code>cd: change directory
+    cd ~ 
+    cd ~[username]
+    cd - 上个视图的目录
+    cd .. 当前目录的父目录
+pwd：print working directory
+    pwd -P ：显示真正的目录，非连接文件夹的名称
+mkdir: make directory
+    mkdir -p test1/test2/test3 ：创建test3，当其父目录不存在的时候一并创建
+rmdir: remove directory 删除空文件夹
+    rmdir xxx 只能删除空文件夹
+    rmdir -r xxx 递归删除文件夹里面所有的东西
+</code></pre><h5 id="1-3-关於运行档路径的变量：-PATH"><a href="#1-3-关於运行档路径的变量：-PATH" class="headerlink" title="1.3 关於运行档路径的变量： $PATH"></a>1.3 关於运行档路径的变量： $PATH</h5><pre><code>echo $PATH 执行文件所在的文件路径，即环境变量
+</code></pre><h4 id="2-文件与目录管理"><a href="#2-文件与目录管理" class="headerlink" title="2. 文件与目录管理"></a>2. 文件与目录管理</h4><h5 id="2-1-文件与目录的检视：-ls"><a href="#2-1-文件与目录的检视：-ls" class="headerlink" title="2.1 文件与目录的检视： ls"></a>2.1 文件与目录的检视： ls</h5><pre><code>ls -l：当前目录的属性和权限
+ls -a：显示隐藏文件
+ls -d：只显示目录
+</code></pre><h5 id="2-2-复制、删除与移动：-cp-rm-mv"><a href="#2-2-复制、删除与移动：-cp-rm-mv" class="headerlink" title="2.2 复制、删除与移动： cp, rm, mv"></a>2.2 复制、删除与移动： cp, rm, mv</h5><pre><code>cp:
+    cp -a xxx：相当於 -pdr 的意思
+    cp -i xxx：询问，假如目标文件存在
+    cp -p xxx:连同文件属性一并复制过去
+    cp -r xxx:递归复制，如复制文件夹
+rm:
+    rm -r xxx：因为该目录或文件『肯定』会被 root 杀掉！
+mv: 移动更名
+    mv xxx xxx
+</code></pre><h5 id="2-3-取得路径的文件名称与目录名称"><a href="#2-3-取得路径的文件名称与目录名称" class="headerlink" title="2.3 取得路径的文件名称与目录名称"></a>2.3 取得路径的文件名称与目录名称</h5><h4 id="3-文件内容查阅："><a href="#3-文件内容查阅：" class="headerlink" title="3. 文件内容查阅："></a>3. 文件内容查阅：</h4><h5 id="3-1-直接检视文件内容：-cat-tac-nl"><a href="#3-1-直接检视文件内容：-cat-tac-nl" class="headerlink" title="3.1 直接检视文件内容： cat, tac, nl"></a>3.1 直接检视文件内容： cat, tac, nl</h5><h5 id="3-2-可翻页检视：-more-less"><a href="#3-2-可翻页检视：-more-less" class="headerlink" title="3.2 可翻页检视： more, less"></a>3.2 可翻页检视： more, less</h5><h5 id="3-3-数据撷取：-head-tail"><a href="#3-3-数据撷取：-head-tail" class="headerlink" title="3.3 数据撷取： head, tail"></a>3.3 数据撷取： head, tail</h5><h5 id="3-4-非纯文字档：-od"><a href="#3-4-非纯文字档：-od" class="headerlink" title="3.4 非纯文字档： od"></a>3.4 非纯文字档： od</h5><h5 id="3-5-修改文件时间与建置新档：-touch"><a href="#3-5-修改文件时间与建置新档：-touch" class="headerlink" title="3.5 修改文件时间与建置新档： touch"></a>3.5 修改文件时间与建置新档： touch</h5><h4 id="4-文件与目录的默认权限与隐藏权限"><a href="#4-文件与目录的默认权限与隐藏权限" class="headerlink" title="4. 文件与目录的默认权限与隐藏权限"></a>4. 文件与目录的默认权限与隐藏权限</h4><h5 id="4-1-文件默认权限：umask"><a href="#4-1-文件默认权限：umask" class="headerlink" title="4.1 文件默认权限：umask"></a>4.1 文件默认权限：umask</h5><h5 id="4-2-文件隐藏属性：-chattr-lsattr"><a href="#4-2-文件隐藏属性：-chattr-lsattr" class="headerlink" title="4.2 文件隐藏属性： chattr, lsattr"></a>4.2 文件隐藏属性： chattr, lsattr</h5><h5 id="4-4-文件特殊权限：SUID-SGID-SBIT-权限配置"><a href="#4-4-文件特殊权限：SUID-SGID-SBIT-权限配置" class="headerlink" title="4.4 文件特殊权限：SUID, SGID, SBIT, 权限配置"></a>4.4 文件特殊权限：SUID, SGID, SBIT, 权限配置</h5><pre><code>SUID： Set UID 替代x，就是说有了s后在运行该程序的时候具有该程序拥有者的权限，就能够通过该程序修改属于改程序拥有者的文件
+    SUID 权限仅对二进位程序(binary program)有效；
+    运行者对於该程序需要具有 x 的可运行权限；
+    本权限仅在运行该程序的过程中有效 (run-time)；
+    运行者将具有该程序拥有者 (owner) 的权限。
+SGID：与SUID类似只是把运行时拥有该程序所在群组的权限
+    对于文件：
+        SGID 对二进位程序有用还有目录！！！
+        程序运行者对於该程序来说，需具备 x 的权限；
+        运行者在运行的过程中将会获得该程序群组的支持
+    对于目录：
+        使用者若对於此目录具有 r 与 x 的权限时，该使用者能够进入此目录；
+        使用者在此目录下的有效群组(effective group)将会变成该目录的群组；
+        用途：若使用者在此目录下具有 w 的权限(可以新建文件)                ，则使用者所创建的新文件，该新文件的群组与此目录的群组 ***相同***。
+SBIT：Sticky Bit
+    当使用者对於此目录具有 w, x 权限，亦即具有写入的权限时；
+    当使用者在该目录下创建文件或目录时，***仅有***自己与 root 才有权力删除该文件
+权限配置
+     4 为 SUID
+    2 为 SGID
+    1 为 SBIT
+</code></pre><h5 id="4-3-观察文件类型：file"><a href="#4-3-观察文件类型：file" class="headerlink" title="4.3 观察文件类型：file"></a>4.3 观察文件类型：file</h5><pre><code>file xxx
+</code></pre><h4 id="5-命令与文件的搜寻："><a href="#5-命令与文件的搜寻：" class="headerlink" title="5. 命令与文件的搜寻："></a>5. 命令与文件的搜寻：</h4><h5 id="5-1-命令档名的搜寻：which"><a href="#5-1-命令档名的搜寻：which" class="headerlink" title="5.1 命令档名的搜寻：which"></a>5.1 命令档名的搜寻：which</h5><pre><code>which xxx
+</code></pre><h5 id="5-2-文件档名的搜寻：whereis-locate-find"><a href="#5-2-文件档名的搜寻：whereis-locate-find" class="headerlink" title="5.2 文件档名的搜寻：whereis, locate, find"></a>5.2 文件档名的搜寻：whereis, locate, find</h5><pre><code>1. whereis
+2. locate
+3. find
+    find path -user name
+    find path -group name
+    find path -perm mode 权限刚好
+    find path -perm -mode 必须要全部囊括 mode 的权限的文件
+    find path -perm +mode 
+        搜寻文件权限『包含任一 mode 的权限』的文件，举例来说，我们搜寻
+         -rwxr-xr-x ，亦即 -perm +755 时，但一个文件属性为 -rw-------也会被列出来，因为他有 -rw.... 的属性存在！
+    find / -perm +7000 -exec ls -l {} \;
+        {} 代表的是『由 find 找到的内容』，如上图所示，find 的结果会被放置到 {} 位置中；-exec 一直到 \; 是关键字，代表 find 额外动作的开始 (-exec) 到结束 (\;) ，在这中间的就是 find 命令内的额外动作。 在本例中就是『 ls -l {} 』罗！因为『 ; 』在 bash 环境下是有特殊意义的，因此利用反斜线来跳脱。
+</code></pre><h4 id="6-极重要！权限与命令间的关系："><a href="#6-极重要！权限与命令间的关系：" class="headerlink" title="6. 极重要！权限与命令间的关系："></a>6. 极重要！权限与命令间的关系：</h4><pre><code>一、让使用者能进入某目录成为『可工作目录』的基本权限为何：
+    可使用的命令：例如 cd 等变换工作目录的命令；
+    目录所需权限：使用者对这个目录至少需要具有 x 的权限
+    额外需求：如果使用者想要在这个目录内利用 ls 查阅档名，则使用者对此目录还需要 r 的权限。
+二、使用者在某个目录内读取一个文件的基本权限为何？
+    可使用的命令：例如本章谈到的 cat, more, less等等
+    目录所需权限：使用者对这个目录至少需要具有 x 权限；
+    文件所需权限：使用者对文件至少需要具有 r 的权限才行！
+三、让使用者可以修改一个文件的基本权限为何？
+    可使用的命令：例如 nano 或未来要介绍的 vi 编辑器等；
+    目录所需权限：使用者在该文件所在的目录至少要有 x 权限；
+    文件所需权限：使用者对该文件至少要有 r, w 权限
+四、让一个使用者可以创建一个文件的基本权限为何？
+    目录所需权限：使用者在该目录要具有 w,x 的权限，重点在 w 啦！
+五、让使用者进入某目录并运行该目录下的某个命令之基本权限为何？
+    目录所需权限：使用者在该目录至少要有 x 的权限；
+    文件所需权限：使用者在该文件至少需要有 x 的权限
+</code></pre><p>-a 是and 的意思<br>-o 是or的意思<br>! 条件  是非的意思<br>find / ! -user root 查找非root的文件</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/11/24/linux-vbird-chapter-6/" itemprop="url">
                   未命名
                 </a>
@@ -1658,152 +1839,6 @@ CPU频率为3.0GHz， 表示这颗CPU在一秒内可以进行3.0x109次工作
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/08/29/dp-behaviour-state/" itemprop="url">
-                  设计模式-行为型-状态模式(State Pattern)
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-08-29T20:16:00+08:00" content="2016-08-29">
-              2016-08-29
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/技术/" itemprop="url" rel="index">
-                    <span itemprop="name">技术</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/08/29/dp-behaviour-state/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/29/dp-behaviour-state/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="状态模式"><a href="#状态模式" class="headerlink" title="状态模式"></a>状态模式</h2><h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><p>&nbsp;&nbsp;提供一种方法来访问聚合对象，而不用暴露这个对象的内部表示，其别名为游标(Cursor)。迭代器模式是一种对象行为型模式。</p>
-<h3 id="角色分析"><a href="#角色分析" class="headerlink" title="角色分析"></a>角色分析</h3><ul>
-<li>Context（环境类）：环境类又称为上下文类，它是拥有多种状态的对象。由于环境类的状态存在多样性且在不同状态下对象的行为有所不同，因此将状态独立出去形成单独的状态类。在环境类中维护一个抽象状态类State的实例，这个实例定义当前状态，在具体实现时，它是一个State子类的对象。</li>
-<li>State（抽象状态类）：它用于定义一个接口以封装与环境类的一个特定状态相关的行为，在抽象状态类中声明了各种不同状态对应的方法，而在其子类中实现类这些方法，由于不同状态下对象的行为可能不同，因此在不同子类中方法的实现可能存在不同，相同的方法可以写在抽象状态类中。</li>
-<li>ConcreteState（具体状态类）：它是抽象状态类的子类，每一个子类实现一个与环境类的一个状态相关的行为，每一个具体状态类对应环境的一个具体状态，不同的具体状态类其行为有所不同。<h3 id="UML图"><a href="#UML图" class="headerlink" title="UML图"></a>UML图</h3><img src="http://oa5ova13h.bkt.clouddn.com/state_classic.png" alt="状态模式"><h3 id="典型代码"><a href="#典型代码" class="headerlink" title="典型代码"></a>典型代码</h3>抽象状态类:State<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">State</span> </span>&#123;  </span><br><span class="line">    <span class="comment">//声明抽象业务方法，不同的具体状态类可以不同的实现  </span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">handle</span><span class="params">()</span></span>;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<p>环境类：Context<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Context</span> </span>&#123;  </span><br><span class="line">    <span class="keyword">private</span> State state; <span class="comment">//维持一个对抽象状态对象的引用  </span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> value; <span class="comment">//其他属性值，该属性值的变化可能会导致对象状态发生变化  </span></span><br><span class="line"></span><br><span class="line">    <span class="comment">//设置状态对象  </span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setState</span><span class="params">(State state)</span> </span>&#123;  </span><br><span class="line">        <span class="keyword">this</span>.state = state;  </span><br><span class="line">    &#125;  </span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">request</span><span class="params">()</span> </span>&#123;  </span><br><span class="line">        <span class="comment">//其他代码  </span></span><br><span class="line">        state.handle(); <span class="comment">//调用状态对象的业务方法  </span></span><br><span class="line">        <span class="comment">//其他代码  </span></span><br><span class="line">    &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>改变状态可以由 <strong><em>环境类负责</em></strong><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">     <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">changeState</span><span class="params">()</span> </span>&#123;  </span><br><span class="line">    <span class="comment">//判断属性值，根据属性值进行状态转换  </span></span><br><span class="line">     <span class="keyword">if</span> (value == <span class="number">0</span>) &#123;  </span><br><span class="line">        <span class="keyword">this</span>.setState(<span class="keyword">new</span> ConcreteStateA());  </span><br><span class="line">    &#125;  </span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (value == <span class="number">1</span>) &#123;  </span><br><span class="line">        <span class="keyword">this</span>.setState(<span class="keyword">new</span> ConcreteStateB());  </span><br><span class="line">    &#125;  </span><br><span class="line">       ......  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>也可以由具体状态类负责<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"> <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">changeState</span><span class="params">(Context ctx)</span> </span>&#123;  </span><br><span class="line">    <span class="comment">//根据环境对象中的属性值进行状态转换  </span></span><br><span class="line">     <span class="keyword">if</span> (ctx.getValue() == <span class="number">1</span>) &#123;  </span><br><span class="line">        ctx.setState(<span class="keyword">new</span> ConcreteStateB());  </span><br><span class="line">    &#125;  </span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (ctx.getValue() == <span class="number">2</span>) &#123;  </span><br><span class="line">        ctx.setState(<span class="keyword">new</span> ConcreteStateC());  </span><br><span class="line">    &#125;  </span><br><span class="line">       ......  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h3 id="示例UML图"><a href="#示例UML图" class="headerlink" title="示例UML图"></a>示例UML图</h3><p><img src="http://oa5ova13h.bkt.clouddn.com/state_example.png" alt=""></p>
-<h3 id="示例代码"><a href="#示例代码" class="headerlink" title="示例代码"></a>示例代码</h3><p>&nbsp;&nbsp;下面示例中，Cattle有两个状态：EnergeticState和ExhaustedState。在调用Cattle的plow方法，不同状态有不同的结果。<br>抽象状态：State<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">State</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">plow</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">onEnter</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>环境类：Cattle<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Cattle</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> State currentState;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Cattle</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>();</span><br><span class="line">        currentState = <span class="keyword">new</span> EnergeticState(<span class="keyword">this</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">timePass</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (currentState.getClass().equals(EnergeticState.class)) &#123;</span><br><span class="line">            changeToState(<span class="keyword">new</span> ExhaustedState(<span class="keyword">this</span>));</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            changeToState(<span class="keyword">new</span> EnergeticState(<span class="keyword">this</span>));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">changeToState</span><span class="params">(State state)</span> </span>&#123;</span><br><span class="line">        currentState = state;</span><br><span class="line">        currentState.onEnter();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">plow</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        currentState.plow();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"Cattle"</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>具体状态：EnergeticState<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">EnergeticState</span> <span class="keyword">implements</span> <span class="title">State</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> Cattle cattle;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">EnergeticState</span><span class="params">(Cattle cattle)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>();</span><br><span class="line">        <span class="keyword">this</span>.cattle = cattle;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">plow</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(String.format(<span class="string">"%s plow fastly and effectivly"</span>,   cattle));</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onEnter</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(String.format(<span class="string">"%s become energetic"</span>, cattle));</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>具体状态：ExhaustedState<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ExhaustedState</span> <span class="keyword">implements</span> <span class="title">State</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> Cattle cattle;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">ExhaustedState</span><span class="params">(Cattle cattle)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>();</span><br><span class="line">        <span class="keyword">this</span>.cattle = cattle;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">plow</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(String.format(<span class="string">"%s plow slowly"</span>, cattle));</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onEnter</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(String.format(<span class="string">"%s become tired"</span>, cattle));</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>客户端：App<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">App</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Cattle cattle = <span class="keyword">new</span> Cattle();</span><br><span class="line">        cattle.plow();</span><br><span class="line">        cattle.timePass();</span><br><span class="line">        cattle.plow();</span><br><span class="line">        cattle.timePass();</span><br><span class="line">        cattle.plow();</span><br><span class="line">        cattle.timePass();</span><br><span class="line">        cattle.plow();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h3 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h3><ul>
-<li>封装了状态的转换规则，在状态模式中可以将状态的转换代码封装在环境类或者具体状态类中，可以对状态转换代码进行集中管理，而不是分散在一个个业务方法中。</li>
-<li>将所有与某个状态有关的行为放到一个类中，只需要注入一个不同的状态对象即可使环境对象拥有不同的行为。</li>
-<li>允许状态转换逻辑与状态对象合成一体，而不是提供一个巨大的条件语句块，状态模式可以让我们避免使用庞大的条件语句来将业务方法和状态转换代码交织在一起。</li>
-<li>可以让多个环境对象共享一个状态对象，从而减少系统中对象的个数。<h3 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h3></li>
-<li>状态模式的使用必然会增加系统中类和对象的个数，导致系统运行开销增大。</li>
-<li>状态模式的结构与实现都较为复杂，如果使用不当将导致程序结构和代码的混乱，增加系统设计的难度。</li>
-<li>状态模式对“开闭原则”的支持并不太好，增加新的状态类需要修改那些负责状态转换的源代码，否则无法转换到新增状态；而且修改某个状态类的行为也需修改对应类的源代码。<h3 id="适用环境"><a href="#适用环境" class="headerlink" title="适用环境"></a>适用环境</h3></li>
-<li>对象的行为依赖于它的状态（如某些属性值），状态的改变将导致行为的变化。</li>
-<li>在代码中包含大量与对象状态有关的条件语句，这些条件语句的出现，会导致代码的可维护性和灵活性变差，不能方便地增加和删除状态，并且导致客户类与类库之间的耦合增强。。</li>
-</ul>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1849,7 +1884,7 @@ CPU频率为3.0GHz， 表示这颗CPU在一秒内可以进行3.0x109次工作
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">32</span>
+              <span class="site-state-item-count">33</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
