@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="读书,Linux," />
 
 
 
@@ -84,34 +84,37 @@
 
 
 
-<meta name="description" content="title: 《鸟哥的私房菜》读书笔记-第六章、Linux 的文件权限与目录配置date: 2016-11-24 0:17:13tags: [Linux,读书]categories: 技术 
-1. 使用者与群组1. user，group 和others
+<meta name="description" content="1. 使用者与群组1. user，group 和others
 2. Linux文件权限概念2.1 Linux文件属性-rwrwx---
 d 为目录
 - 为文件
 l 连结档(link file
-b 则表示为装置">
+b 则表示为装置文件里面的可供储存的接口设备(可随机存取装置)；
+c 则表示为装置文件里面的串行端口设备，例如键盘、鼠标(一次性读取装置)。
+三个rwx，分别为文件拥有者的权限，同群组的权限，其他非本群组的权">
 <meta property="og:type" content="article">
-<meta property="og:title" content="AaronChan Blog">
+<meta property="og:title" content="《鸟哥的私房菜》读书笔记-第六章、Linux 的文件权限与目录配置">
 <meta property="og:url" content="https://yoursite.com/2016/11/24/linux-vbird-chapter-6/index.html">
 <meta property="og:site_name" content="AaronChan Blog">
-<meta property="og:description" content="title: 《鸟哥的私房菜》读书笔记-第六章、Linux 的文件权限与目录配置date: 2016-11-24 0:17:13tags: [Linux,读书]categories: 技术 
-1. 使用者与群组1. user，group 和others
+<meta property="og:description" content="1. 使用者与群组1. user，group 和others
 2. Linux文件权限概念2.1 Linux文件属性-rwrwx---
 d 为目录
 - 为文件
 l 连结档(link file
-b 则表示为装置">
-<meta property="og:updated_time" content="2016-11-23T16:22:31.309Z">
+b 则表示为装置文件里面的可供储存的接口设备(可随机存取装置)；
+c 则表示为装置文件里面的串行端口设备，例如键盘、鼠标(一次性读取装置)。
+三个rwx，分别为文件拥有者的权限，同群组的权限，其他非本群组的权">
+<meta property="og:updated_time" content="2016-11-24T00:29:21.202Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="AaronChan Blog">
-<meta name="twitter:description" content="title: 《鸟哥的私房菜》读书笔记-第六章、Linux 的文件权限与目录配置date: 2016-11-24 0:17:13tags: [Linux,读书]categories: 技术 
-1. 使用者与群组1. user，group 和others
+<meta name="twitter:title" content="《鸟哥的私房菜》读书笔记-第六章、Linux 的文件权限与目录配置">
+<meta name="twitter:description" content="1. 使用者与群组1. user，group 和others
 2. Linux文件权限概念2.1 Linux文件属性-rwrwx---
 d 为目录
 - 为文件
 l 连结档(link file
-b 则表示为装置">
+b 则表示为装置文件里面的可供储存的接口设备(可随机存取装置)；
+c 则表示为装置文件里面的串行端口设备，例如键盘、鼠标(一次性读取装置)。
+三个rwx，分别为文件拥有者的权限，同群组的权限，其他非本群组的权">
 
 
 
@@ -134,7 +137,7 @@ b 则表示为装置">
 
   <link rel="canonical" href="https://yoursite.com/2016/11/24/linux-vbird-chapter-6/"/>
 
-  <title>  | AaronChan Blog </title>
+  <title> 《鸟哥的私房菜》读书笔记-第六章、Linux 的文件权限与目录配置 | AaronChan Blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -264,7 +267,7 @@ b 则表示为装置">
             
             
               
-                
+                《鸟哥的私房菜》读书笔记-第六章、Linux 的文件权限与目录配置
               
             
           </h1>
@@ -276,11 +279,30 @@ b 则表示为装置">
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-11-24T00:21:05+08:00" content="2016-11-24">
+            <time itemprop="dateCreated" datetime="2016-11-24T00:17:13+08:00" content="2016-11-24">
               2016-11-24
             </time>
           </span>
 
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/技术/" itemprop="url" rel="index">
+                    <span itemprop="name">技术</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
           
 
           
@@ -311,8 +333,7 @@ b 则表示为装置">
       
 
       
-        <p>title: 《鸟哥的私房菜》读书笔记-第六章、Linux 的文件权限与目录配置<br>date: 2016-11-24 0:17:13<br>tags: [Linux,读书]<br>categories: 技术 </p>
-<h4 id="1-使用者与群组"><a href="#1-使用者与群组" class="headerlink" title="1. 使用者与群组"></a>1. 使用者与群组</h4><pre><code>1. user，group 和others
+        <h4 id="1-使用者与群组"><a href="#1-使用者与群组" class="headerlink" title="1. 使用者与群组"></a>1. 使用者与群组</h4><pre><code>1. user，group 和others
 </code></pre><h4 id="2-Linux文件权限概念"><a href="#2-Linux文件权限概念" class="headerlink" title="2. Linux文件权限概念"></a>2. Linux文件权限概念</h4><h5 id="2-1-Linux文件属性"><a href="#2-1-Linux文件属性" class="headerlink" title="2.1 Linux文件属性"></a>2.1 Linux文件属性</h5><pre><code>-rwrwx---
 d 为目录
 - 为文件
@@ -358,6 +379,14 @@ chmod   u g o       a +(加入)  -(除去)      =(设定)
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/读书/" rel="tag">#读书</a>
+          
+            <a href="/tags/Linux/" rel="tag">#Linux</a>
+          
+        </div>
+      
 
       
         <div class="post-nav">
@@ -371,8 +400,8 @@ chmod   u g o       a +(加入)  -(除去)      =(设定)
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2016/11/24/linux-vbird-chapter-7/" rel="prev" title="">
-                 <i class="fa fa-chevron-right"></i>
+              <a href="/2016/11/24/linux-vbird-chapter-7/" rel="prev" title="《鸟哥的私房菜》读书笔记-第七章、Linux 文件与目录管理">
+                《鸟哥的私房菜》读书笔记-第七章、Linux 文件与目录管理 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -400,7 +429,7 @@ chmod   u g o       a +(加入)  -(除去)      =(设定)
   <div class="comments" id="comments">
     
       <div class="ds-thread" data-thread-key="2016/11/24/linux-vbird-chapter-6/"
-           data-title="" data-url="https://yoursite.com/2016/11/24/linux-vbird-chapter-6/">
+           data-title="《鸟哥的私房菜》读书笔记-第六章、Linux 的文件权限与目录配置" data-url="https://yoursite.com/2016/11/24/linux-vbird-chapter-6/">
       </div>
     
   </div>
@@ -445,7 +474,7 @@ chmod   u g o       a +(加入)  -(除去)      =(设定)
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">33</span>
+              <span class="site-state-item-count">34</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>

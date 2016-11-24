@@ -1,0 +1,700 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="读书,Linux," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="1. vi 与 vim1.1 为何要学 vim*  所有的 Unix Like 系统都会内建 vi 文书编辑器，其他的文书编辑器则不一定会存在；
+* 很多个别软件的编辑接口都会 ***主动呼叫 vi*** (例如未来会谈到的 crontab, visudo, edquota 等指令)；
+* vim 具有程序编辑的能力，可以主动的以字体颜色辨别语法的正确性，方便程序设计；
+因为程序简单，编辑速度相当">
+<meta property="og:type" content="article">
+<meta property="og:title" content="《鸟哥的私房菜》读书笔记-第十章、vim 程序编辑器">
+<meta property="og:url" content="https://yoursite.com/2016/11/24/linux-vbird-chapter-10/index.html">
+<meta property="og:site_name" content="AaronChan Blog">
+<meta property="og:description" content="1. vi 与 vim1.1 为何要学 vim*  所有的 Unix Like 系统都会内建 vi 文书编辑器，其他的文书编辑器则不一定会存在；
+* 很多个别软件的编辑接口都会 ***主动呼叫 vi*** (例如未来会谈到的 crontab, visudo, edquota 等指令)；
+* vim 具有程序编辑的能力，可以主动的以字体颜色辨别语法的正确性，方便程序设计；
+因为程序简单，编辑速度相当">
+<meta property="og:updated_time" content="2016-11-24T00:31:09.523Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="《鸟哥的私房菜》读书笔记-第十章、vim 程序编辑器">
+<meta name="twitter:description" content="1. vi 与 vim1.1 为何要学 vim*  所有的 Unix Like 系统都会内建 vi 文书编辑器，其他的文书编辑器则不一定会存在；
+* 很多个别软件的编辑接口都会 ***主动呼叫 vi*** (例如未来会谈到的 crontab, visudo, edquota 等指令)；
+* vim 具有程序编辑的能力，可以主动的以字体颜色辨别语法的正确性，方便程序设计；
+因为程序简单，编辑速度相当">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="https://yoursite.com/2016/11/24/linux-vbird-chapter-10/"/>
+
+  <title> 《鸟哥的私房菜》读书笔记-第十章、vim 程序编辑器 | AaronChan Blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?51f0c6f8829e2634ec8f9bfc8220f514";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">AaronChan Blog</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">陈晓城</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                《鸟哥的私房菜》读书笔记-第十章、vim 程序编辑器
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-11-24T08:26:13+08:00" content="2016-11-24">
+              2016-11-24
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/技术/" itemprop="url" rel="index">
+                    <span itemprop="name">技术</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/11/24/linux-vbird-chapter-10/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/11/24/linux-vbird-chapter-10/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h4 id="1-vi-与-vim"><a href="#1-vi-与-vim" class="headerlink" title="1. vi 与 vim"></a>1. vi 与 vim</h4><h5 id="1-1-为何要学-vim"><a href="#1-1-为何要学-vim" class="headerlink" title="1.1 为何要学 vim"></a>1.1 为何要学 vim</h5><pre><code>*  所有的 Unix Like 系统都会内建 vi 文书编辑器，其他的文书编辑器则不一定会存在；
+* 很多个别软件的编辑接口都会 ***主动呼叫 vi*** (例如未来会谈到的 crontab, visudo, edquota 等指令)；
+* vim 具有程序编辑的能力，可以主动的以字体颜色辨别语法的正确性，方便程序设计；
+</code></pre><p>因为程序简单，编辑速度相当快速。</p>
+<h4 id="2-vi-的使用"><a href="#2-vi-的使用" class="headerlink" title="2. vi 的使用"></a>2. vi 的使用</h4><h5 id="2-1-简易执行范例"><a href="#2-1-简易执行范例" class="headerlink" title="2.1 简易执行范例"></a>2.1 简易执行范例</h5><pre><code>2.2.1 vi [filename]
+2.2.2 模式：编辑模式和命令模式之间不能切换
+    一般模式：按[i,o,a]切换到编辑模式，按Esc退出
+    编辑模式：
+    命令模式：
+</code></pre><h5 id="2-2-按键说明"><a href="#2-2-按键说明" class="headerlink" title="2.2 按键说明"></a>2.2 按键说明</h5><h6 id="2-2-1-一般模式可用的按钮说明，光标移动、复制贴上、搜寻取代等"><a href="#2-2-1-一般模式可用的按钮说明，光标移动、复制贴上、搜寻取代等" class="headerlink" title="2.2.1 一般模式可用的按钮说明，光标移动、复制贴上、搜寻取代等"></a>2.2.1 一般模式可用的按钮说明，光标移动、复制贴上、搜寻取代等</h6><pre><code>2.2.1.1 移动光标的方法：
+    `crtl+f`:下一页[Page Down]
+    `crtl+b`：上一页[Page Up]
+    `0`：移动到这一行的最前面字符处 [Home]
+    `$`：移动到这一行的最后面字符处 [End]
+    `gg`：第一行
+    `G`：最后一行
+    `n&lt;space&gt;`:那个 n 表示『数字』，例如 20 。按下数字后再按空格键，光标会向右移动这一行的 n 个字符。例如 20space 则光标会向后面移动 20 个字符距离。
+    `n&lt;Enter&gt;`:n 为数字。光标向下移动 n 行(
+    `nG`：到第几行
+2.2.1.2 寻找替换：
+    `/word`：向下查找word
+    `:n1,$n2s/word1/word2/g`： 从n1行到n2行把word1替换成word2
+    `:n1,$s/word1/word2/g`： 从第n2行开始到最后一行把word1替换成word2
+    `:n1,$s/word1/word2/gc`：    从第n2行开始到最后一行把word1替换成word2,需要confirm确定
+2.2.1.3 删除、复制与贴上：
+    `x`和`X`：`x`为删除光标后的一个字符，即向后删[delete],`X` 为删除光标前的一个字符,即向前删[backspace]
+    `xn`：连续删除n个字符
+    `dd`：删除该行
+    `ndd`:n 为数字。删除光标所在的向下 n 列（包括该行），例如 20dd     则是删除 20 列 
+    `yy`：复制该行
+    `nyy`：n为数字，复制光标所在的向下 n 列（包括该行），例如 20yy  则是复制 20 列
+    `p`和`P`：p 为将已复制的数据在光标下一行贴上，P    则为贴在游标上一行！ 举例来说，我目前光标在第 20 行，且已经复制了    10 行数据。则按下 p 后， 那 10 行数据会贴在原本的 20  行之后，亦即由 21 行开始贴。但如果是按下 P 呢？ 那么原本的第 20    行会被推到变成 30 行。
+    `crtl +r`:重做上一个动作
+    `u`：撤销
+    `.`：重做上一个动作
+</code></pre><h6 id="2-2-2-一般模式切换到编辑模式的可用的按钮说明"><a href="#2-2-2-一般模式切换到编辑模式的可用的按钮说明" class="headerlink" title="2.2.2 一般模式切换到编辑模式的可用的按钮说明"></a>2.2.2 一般模式切换到编辑模式的可用的按钮说明</h6><pre><code>2.2.2.1 进入插入或取代的编辑模式：
+`i, I`：进入插入模式(Insert mode)：
+</code></pre><p>i 为『从目前光标所在处插入』， I 为『在目前所在行的第一个非空格符处开始插入』<br>            <code>a, A</code>：进入插入模式(Insert mode)：<br>a 为『从目前光标所在的下一个字符处开始插入』， A 为『从光标所在行的最后一个字符处开始插入』<br>            <code>o, O</code>：进入插入模式(Insert mode)：<br>这是英文字母 o 的大小写。o 为『在目前光标所在的下一行处插入新的一行』； O 为在目前光标所在处的上一行插入新的一行！<br>            <code>r, R</code>：进入取代模式(Replace mode)：<br>r 只会取代光标所在的那一个字符一次；R会一直取代光标所在的文字，直到按下 ESC 为止；</p>
+<h6 id="2-2-3-一般模式切换到指令列模式的可用的按钮说明"><a href="#2-2-3-一般模式切换到指令列模式的可用的按钮说明" class="headerlink" title="2.2.3 一般模式切换到指令列模式的可用的按钮说明"></a>2.2.3 一般模式切换到指令列模式的可用的按钮说明</h6><pre><code>2.2.3.1 指令列的储存、离开等指令
+    `:w`：将编辑的数据写入硬盘档案中
+    `:q`：离开
+    `:wq`：储存后离开，若为 :wq! 则为强制储存后离开
+2.2.3.2 vim 环境的变更
+    `:set nu` ：显示行号
+    `:set nonu`:不显示行号
+</code></pre><h5 id="2-3-一个案例的练习"><a href="#2-3-一个案例的练习" class="headerlink" title="2.3 一个案例的练习"></a>2.3 一个案例的练习</h5><h5 id="2-4-vim-的暂存档、救援回复与开启时的警告讯息"><a href="#2-4-vim-的暂存档、救援回复与开启时的警告讯息" class="headerlink" title="2.4 vim 的暂存档、救援回复与开启时的警告讯息"></a>2.4 vim 的暂存档、救援回复与开启时的警告讯息</h5><h4 id="3-vim-的额外功能"><a href="#3-vim-的额外功能" class="headerlink" title="3. vim 的额外功能"></a>3. vim 的额外功能</h4><h5 id="3-1-区块选择-Visual-Block"><a href="#3-1-区块选择-Visual-Block" class="headerlink" title="3.1 区块选择(Visual Block)"></a>3.1 区块选择(Visual Block)</h5><pre><code>    `v`：字符选择，会将光标经过的地方反白选择！
+    `V`：行选择，会将光标经过的行反白选择！
+`[Ctrl]+v`：区块选择，可以用长方形的方式选择资料
+    `y`：将反白的地方复制起来
+</code></pre><p>d   将反白的地方删除掉</p>
+<h5 id="3-2-多档案编辑"><a href="#3-2-多档案编辑" class="headerlink" title="3.2 多档案编辑"></a>3.2 多档案编辑</h5><pre><code>`vim filename1 filename2`
+:n  编辑下一个档案
+:N  编辑上一个档案
+:files  列出目前这个 vim 的开启的所有档案
+</code></pre><h5 id="3-3-多窗口功能"><a href="#3-3-多窗口功能" class="headerlink" title="3.3 多窗口功能"></a>3.3 多窗口功能</h5><pre><code>`:sp [filename]`  开启一个新窗口，如果有加 filename， 表示在新窗口开启一个新档案，否则表示两个窗口为同一个档案内容(同步显示)。
+`[ctrl]+w+ j`和`[ctrl]+w+↓`  按键的按法是：先按下 [ctrl] 不放， 再按下 w 后放开所有的按键，然后再按下 j (或向下箭头键)，则光标可移动到下方的窗口。
+`[ctrl]+w+ k` 和`[ctrl]+w+↑`同上，不过光标移动到上面的窗口。
+`[ctrl]+w+ q` 其实就是 :q 结束离开啦！ 举例来说，如果我想要结束下方的窗口，那么利用 [ctrl]+w+↓ 移动到下方窗口后，按下 :q 即可离开， 也可以按下 [ctrl]+w+q 啊！
+</code></pre><h5 id="3-4-vim-环境设定与记录：-vimrc-viminfo"><a href="#3-4-vim-环境设定与记录：-vimrc-viminfo" class="headerlink" title="3.4 vim 环境设定与记录： ~/.vimrc, ~/.viminfo"></a>3.4 vim 环境设定与记录： ~/.vimrc, ~/.viminfo</h5><h5 id="3-5-vim-常用指令示意图"><a href="#3-5-vim-常用指令示意图" class="headerlink" title="3.5 vim 常用指令示意图"></a>3.5 vim 常用指令示意图</h5><h4 id="4-其他-vim-使用注意事项"><a href="#4-其他-vim-使用注意事项" class="headerlink" title="4. 其他 vim 使用注意事项"></a>4. 其他 vim 使用注意事项</h4><h5 id="4-1-中文编码的问题"><a href="#4-1-中文编码的问题" class="headerlink" title="4.1 中文编码的问题"></a>4.1 中文编码的问题</h5><pre><code>LANG= xxx
+</code></pre><h5 id="4-2-DOS-与-Linux-的断行字符：-dos2unix-unix2dos"><a href="#4-2-DOS-与-Linux-的断行字符：-dos2unix-unix2dos" class="headerlink" title="4.2 DOS 与 Linux 的断行字符： dos2unix, unix2dos"></a>4.2 DOS 与 Linux 的断行字符： dos2unix, unix2dos</h5><pre><code>而 Linux 的 Enter 为 LF 符号， 不过，由于 DOS 的断行符号是 CRLF ，也就是多了一个 ^M 的符号出来
+</code></pre><h5 id="4-3-语系编码转换：-iconv"><a href="#4-3-语系编码转换：-iconv" class="headerlink" title="4.3 语系编码转换： iconv"></a>4.3 语系编码转换： iconv</h5>
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/读书/" rel="tag">#读书</a>
+          
+            <a href="/tags/Linux/" rel="tag">#Linux</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/11/24/linux-vbird-chapter-7/" rel="next" title="《鸟哥的私房菜》读书笔记-第七章、Linux 文件与目录管理">
+                <i class="fa fa-chevron-left"></i> 《鸟哥的私房菜》读书笔记-第七章、Linux 文件与目录管理
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/11/24/linux-vbird-chapter-10/"
+           data-title="《鸟哥的私房菜》读书笔记-第十章、vim 程序编辑器" data-url="https://yoursite.com/2016/11/24/linux-vbird-chapter-10/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/headicon.jpg"
+               alt="AaronChan" />
+          <p class="site-author-name" itemprop="name">AaronChan</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">34</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">分类</span>
+              
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/Aaron-Chan" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-vi-与-vim"><span class="nav-number">1.</span> <span class="nav-text">1. vi 与 vim</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-1-为何要学-vim"><span class="nav-number">1.1.</span> <span class="nav-text">1.1 为何要学 vim</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-vi-的使用"><span class="nav-number">2.</span> <span class="nav-text">2. vi 的使用</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#2-1-简易执行范例"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 简易执行范例</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-2-按键说明"><span class="nav-number">2.2.</span> <span class="nav-text">2.2 按键说明</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#2-2-1-一般模式可用的按钮说明，光标移动、复制贴上、搜寻取代等"><span class="nav-number">2.2.1.</span> <span class="nav-text">2.2.1 一般模式可用的按钮说明，光标移动、复制贴上、搜寻取代等</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#2-2-2-一般模式切换到编辑模式的可用的按钮说明"><span class="nav-number">2.2.2.</span> <span class="nav-text">2.2.2 一般模式切换到编辑模式的可用的按钮说明</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#2-2-3-一般模式切换到指令列模式的可用的按钮说明"><span class="nav-number">2.2.3.</span> <span class="nav-text">2.2.3 一般模式切换到指令列模式的可用的按钮说明</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-3-一个案例的练习"><span class="nav-number">2.3.</span> <span class="nav-text">2.3 一个案例的练习</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-4-vim-的暂存档、救援回复与开启时的警告讯息"><span class="nav-number">2.4.</span> <span class="nav-text">2.4 vim 的暂存档、救援回复与开启时的警告讯息</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-vim-的额外功能"><span class="nav-number">3.</span> <span class="nav-text">3. vim 的额外功能</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#3-1-区块选择-Visual-Block"><span class="nav-number">3.1.</span> <span class="nav-text">3.1 区块选择(Visual Block)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-2-多档案编辑"><span class="nav-number">3.2.</span> <span class="nav-text">3.2 多档案编辑</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-3-多窗口功能"><span class="nav-number">3.3.</span> <span class="nav-text">3.3 多窗口功能</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-4-vim-环境设定与记录：-vimrc-viminfo"><span class="nav-number">3.4.</span> <span class="nav-text">3.4 vim 环境设定与记录： ~/.vimrc, ~/.viminfo</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-5-vim-常用指令示意图"><span class="nav-number">3.5.</span> <span class="nav-text">3.5 vim 常用指令示意图</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-其他-vim-使用注意事项"><span class="nav-number">4.</span> <span class="nav-text">4. 其他 vim 使用注意事项</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#4-1-中文编码的问题"><span class="nav-number">4.1.</span> <span class="nav-text">4.1 中文编码的问题</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-2-DOS-与-Linux-的断行字符：-dos2unix-unix2dos"><span class="nav-number">4.2.</span> <span class="nav-text">4.2 DOS 与 Linux 的断行字符： dos2unix, unix2dos</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-3-语系编码转换：-iconv"><span class="nav-number">4.3.</span> <span class="nav-text">4.3 语系编码转换： iconv</span></a></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">AaronChan</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"aaronchan"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+  
+
+
+
+
+
+
+  
+  
+  
+
+  
+
+  
+
+</body>
+</html>
