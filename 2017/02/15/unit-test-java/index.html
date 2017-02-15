@@ -1,0 +1,760 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="title: 《单元测试之道Java版》读书笔记tags: [测试,读书,Java]date: 2017-2-15 22:58:00
+categories: 技术单元测试的定义来自：维基百科
+
+在计算机编程中，单元测试（英语：Unit Testing）又称为模块测试, 是针对程序模块（软件设计的最小单位）来进行正确性检验的测试工作。程序单元是应用的最小可测试部件。在过程化编程中，一个单元就是单个">
+<meta property="og:type" content="article">
+<meta property="og:title" content="AaronChan Blog">
+<meta property="og:url" content="https://yoursite.com/2017/02/15/unit-test-java/index.html">
+<meta property="og:site_name" content="AaronChan Blog">
+<meta property="og:description" content="title: 《单元测试之道Java版》读书笔记tags: [测试,读书,Java]date: 2017-2-15 22:58:00
+categories: 技术单元测试的定义来自：维基百科
+
+在计算机编程中，单元测试（英语：Unit Testing）又称为模块测试, 是针对程序模块（软件设计的最小单位）来进行正确性检验的测试工作。程序单元是应用的最小可测试部件。在过程化编程中，一个单元就是单个">
+<meta property="og:updated_time" content="2017-02-15T15:46:38.043Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="AaronChan Blog">
+<meta name="twitter:description" content="title: 《单元测试之道Java版》读书笔记tags: [测试,读书,Java]date: 2017-2-15 22:58:00
+categories: 技术单元测试的定义来自：维基百科
+
+在计算机编程中，单元测试（英语：Unit Testing）又称为模块测试, 是针对程序模块（软件设计的最小单位）来进行正确性检验的测试工作。程序单元是应用的最小可测试部件。在过程化编程中，一个单元就是单个">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="https://yoursite.com/2017/02/15/unit-test-java/"/>
+
+  <title>  | AaronChan Blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?51f0c6f8829e2634ec8f9bfc8220f514";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">AaronChan Blog</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">陈晓城</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-02-15T23:27:59+08:00" content="2017-02-15">
+              2017-02-15
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2017/02/15/unit-test-java/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/02/15/unit-test-java/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <hr>
+<p>title: 《单元测试之道Java版》读书笔记<br>tags: [测试,读书,Java]<br>date: 2017-2-15 22:58:00</p>
+<h2 id="categories-技术"><a href="#categories-技术" class="headerlink" title="categories: 技术"></a>categories: 技术</h2><h4 id="单元测试的定义"><a href="#单元测试的定义" class="headerlink" title="单元测试的定义"></a>单元测试的定义</h4><p>来自：<a href="https://zh.wikipedia.org/wiki/%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95" title="维基百科" target="_blank" rel="external">维基百科</a></p>
+<blockquote>
+<p>在计算机编程中，单元测试（英语：Unit Testing）又称为模块测试, 是针对程序模块（软件设计的最小单位）来进行正确性检验的测试工作。程序单元是应用的最小可测试部件。在过程化编程中，一个单元就是单个程序、函数、过程等；对于面向对象编程，最小单元就是方法，包括基类（超类）、抽象类、或者派生类（子类）中的方法。<br>通常来说，程序员每修改一次程序就会进行最少一次单元测试，在编写程序的过程中前后很可能要进行多次单元测试，以证实程序达到软件规格书要求的工作目标，没有程序错误；虽然单元测试不是什么必须的，但也不坏，这牵涉到项目管理的政策决定。</p>
+</blockquote>
+<h4 id="单元测试的内容（Right-BICEP）"><a href="#单元测试的内容（Right-BICEP）" class="headerlink" title="单元测试的内容（Right-BICEP）"></a>单元测试的内容（Right-BICEP）</h4><h5 id="总览"><a href="#总览" class="headerlink" title="总览"></a>总览</h5><ul>
+<li>Right：结果是否正确？</li>
+<li>B：是否所有边界条件都是正确？</li>
+<li>I：能查下反向关联？</li>
+<li>C：能用 <strong><em>交叉手段</em></strong>检查一下结果？</li>
+<li>E：是否强制错误条件发生（模拟错误发生）</li>
+<li>P：是否满足性能要求</li>
+</ul>
+<h5 id="结果是否正确"><a href="#结果是否正确" class="headerlink" title="结果是否正确"></a>结果是否正确</h5><ol>
+<li>验证结果的正确性需要 <strong><em>了解需求</em></strong>,可以通过需求文档来了解；在需求文档不充足或者不完整的情况下，可以站在用户的角度去思考期望的结果是什么。</li>
+<li>针对大量测试需要数据文件，在构造 <strong><em>测试数据</em></strong>的时候需要倍加小心</li>
+</ol>
+<h5 id="边界条件"><a href="#边界条件" class="headerlink" title="边界条件"></a>边界条件</h5><ol>
+<li>举例：<ol>
+<li>格式错误的数据（如输入手机号是包含英文字母）</li>
+<li>空值或者不完整的数据（如null,””等）</li>
+<li>不在预期的合理值范围内（目前没有大于1000岁的人）</li>
+<li>事情的到达的次序不一样，可以理解为是前提条件（如未登录就尝试读取用户数据）</li>
+</ol>
+</li>
+<li>总结：<ol>
+<li>一致性 Conformance ：值是否与预期一致</li>
+<li>顺序性 Ordering ：值是有序还是无序</li>
+<li>区间性 Range ：值是否在合理的区间内</li>
+<li>依赖性 Reference ：代码是否引用了代码无法控制的外部资源（如数据库）</li>
+<li>存在性 Existence ：值是否存在（是否非null，非0，非””）</li>
+<li>基数性 Cardinatity ：是否有足够的值</li>
+<li>相对或者绝对的时间性 Time ：所有事情是否发生有序？是否在正确时间执行？是否恰好及时？</li>
+</ol>
+</li>
+</ol>
+<h5 id="检查反向关联"><a href="#检查反向关联" class="headerlink" title="检查反向关联"></a>检查反向关联</h5><ol>
+<li>通过反向的逻辑关系来验证</li>
+<li>例子：<ul>
+<li>插入数据库，可以通过查询数据库来验证</li>
+<li>写入文件，可以通过读取文件内容来验证</li>
+</ul>
+</li>
+</ol>
+<h5 id="使用其他手段来交叉检查"><a href="#使用其他手段来交叉检查" class="headerlink" title="使用其他手段来交叉检查"></a>使用其他手段来交叉检查</h5><ol>
+<li>交叉检查就是被测试的方法A有与其相同功能但使用了另一套算法的方法B，但由于一些原因（性能不佳）不在项目中使用，利用B来验证A的结果正确性</li>
+<li>使用与操作值有约束关系的其他数据来验证：如在图书管理系统中，借出数增加，留存数肯定是下降的</li>
+</ol>
+<h5 id="强制错误发生条件"><a href="#强制错误发生条件" class="headerlink" title="强制错误发生条件"></a>强制错误发生条件</h5><ol>
+<li>主要是人为制作硬件环境或者运行环境的错误</li>
+<li>checkList：<ul>
+<li>内存耗光</li>
+<li>磁盘用满</li>
+<li>时钟出问题</li>
+<li>网络不可用</li>
+<li>系统过载</li>
+</ul>
+</li>
+</ol>
+<h5 id="性能特性"><a href="#性能特性" class="headerlink" title="性能特性"></a>性能特性</h5><ol>
+<li>不是性能而是性能特性：性能随着规模的增加的变化趋势</li>
+</ol>
+<h5 id="边界条件详解"><a href="#边界条件详解" class="headerlink" title="边界条件详解"></a>边界条件详解</h5><ol>
+<li>一致性：类似于数据的格式是否跟预期一致</li>
+<li>有序性：数据是否按照某种特定顺序排序</li>
+<li>区间性：<ul>
+<li>索引：负 越界等</li>
+<li>值的预期区间</li>
+</ul>
+</li>
+<li>依赖性/耦合性：<ul>
+<li>前条件：方法运行需要系统处于什么状态</li>
+<li>后条件：方法存在任何副作用都需要检查</li>
+</ul>
+</li>
+<li>存在性：给定事物是否存在</li>
+<li>基数性：考虑0-1-n三种情况，其中n是随着业务的变化而变化<ul>
+<li>例子：订单的前十名：订单少于10个；订单等于10个；订单为0</li>
+</ul>
+</li>
+<li>时间性：<ul>
+<li>相对时间（方法执行顺序）</li>
+<li>绝对时间（耗时（超时）或者时钟的时间）</li>
+<li>并发问题（多线程或者多进程问题）</li>
+</ul>
+</li>
+</ol>
+<h4 id="使用MOCK对象"><a href="#使用MOCK对象" class="headerlink" title="使用MOCK对象"></a>使用MOCK对象</h4><h5 id="合适使用MOCK对象"><a href="#合适使用MOCK对象" class="headerlink" title="合适使用MOCK对象"></a>合适使用MOCK对象</h5><ol>
+<li>真实对象具有不可确定的行为</li>
+<li>真实对象很难被创建</li>
+<li>真实对象的某些行为很难触发（如网络错误）</li>
+<li>真实对象令程序的运行速度很慢</li>
+<li>真实对象有用户界面</li>
+<li>测试需要询问真实对象是如何被调用的（验证对象某个函数是否被调用）</li>
+<li>真实对象并不存在（需要不同开发小组或者跟新硬件系统打交道）</li>
+</ol>
+<h5 id="MOCK步骤"><a href="#MOCK步骤" class="headerlink" title="MOCK步骤"></a>MOCK步骤</h5><ol>
+<li>使用一个接口来描述一个对象</li>
+<li>为产品代码实现这个接口</li>
+<li>以测试为目的，在mock对象中实现这个接口</li>
+</ol>
+<h4 id="好的测试需要具备的品质（A-TRIP）"><a href="#好的测试需要具备的品质（A-TRIP）" class="headerlink" title="好的测试需要具备的品质（A-TRIP）"></a>好的测试需要具备的品质（A-TRIP）</h4><h5 id="自动化（Automatic）"><a href="#自动化（Automatic）" class="headerlink" title="自动化（Automatic）"></a>自动化（Automatic）</h5><ol>
+<li>概述：调用测试自动化和检查结果自动化</li>
+<li>拓展：持续构建</li>
+</ol>
+<h5 id="彻底的（Thorough）"><a href="#彻底的（Thorough）" class="headerlink" title="彻底的（Thorough）"></a>彻底的（Thorough）</h5><ol>
+<li>取舍：是测试都覆盖全部代码分支还是仅仅测试最可能的情况</li>
+<li>通过相关的代码覆盖工具进行检查</li>
+</ol>
+<h5 id="可重复（Repeatable）"><a href="#可重复（Repeatable）" class="headerlink" title="可重复（Repeatable）"></a>可重复（Repeatable）</h5><ol>
+<li>测试必须不随顺序影响或者外部条件变化，每次都出现 <strong><em>相同的结果</em></strong>，也就是说必要时应该Mock来隔离外部因素，使测试能够独立与外部，也就是说测试是运行在 <strong><em>sanbox</em></strong>沙盒里面</li>
+</ol>
+<h5 id="独立的（Independent）"><a href="#独立的（Independent）" class="headerlink" title="独立的（Independent）"></a>独立的（Independent）</h5><ol>
+<li>一个测试函数应该专注于一个目标函数或者组合起来的共同提供某个特性的一组函数</li>
+<li>一个测试函数不能依赖与另一个测试函数，也就是不能假定测试函数的执行顺序，因为随着测试数目的增加，这种顺序将变得难以管理。最好是通过setup和teardown来确保每个测试都有一个新的开始。</li>
+<li>每个测试函数都是一个 <strong><em>孤岛</em></strong></li>
+</ol>
+<h5 id="专业的（Professional）"><a href="#专业的（Professional）" class="headerlink" title="专业的（Professional）"></a>专业的（Professional）</h5><ol>
+<li>跟编写产品代码一样，一旦发现有代码冗余重复，就应该重构将该功能放到一个函数里面。</li>
+<li>保持简洁和精炼，设计要良好且重构充分，<strong><em>对待测试代码应该对待产品代码一样</em></strong></li>
+<li>不要为了测试而测试，对于发生可能性很低的错误不要进行测试</li>
+<li>自设圈套:让产品产生想要测试的bug，验证测试是否失败</li>
+</ol>
+<h4 id="项目中进行测试"><a href="#项目中进行测试" class="headerlink" title="项目中进行测试"></a>项目中进行测试</h4><h5 id="测试与评审"><a href="#测试与评审" class="headerlink" title="测试与评审"></a>测试与评审</h5><ol>
+<li>编写test case 和/或测试代码</li>
+<li>评审test case 和/或测试代码</li>
+<li>经评审修改test case 和/或测试代码</li>
+<li>编写能通过所有测试的产品代码</li>
+<li>评审产品代码和测试代码</li>
+<li>在每次评审后，修改测试代码和产品代码</li>
+</ol>
+<h4 id="设计话题"><a href="#设计话题" class="headerlink" title="设计话题"></a>设计话题</h4><h5 id="面向测试设计"><a href="#面向测试设计" class="headerlink" title="面向测试设计"></a>面向测试设计</h5><ol>
+<li>关注点分离，包括：封装性，正交性、耦合性和所有一切编写shycode的计算机科学概念</li>
+<li>比如一个函数有多个操作，可以将多个操作分离到各个方法里面这样就可以独立进行测试</li>
+</ol>
+<h5 id="为测试而重构"><a href="#为测试而重构" class="headerlink" title="为测试而重构"></a>为测试而重构</h5><h5 id="测试类的不变性"><a href="#测试类的不变性" class="headerlink" title="测试类的不变性"></a>测试类的不变性</h5><ol>
+<li>跟上述测试的内容有重合的部分，不再赘述</li>
+</ol>
+<h5 id="测试驱动设计-TDD"><a href="#测试驱动设计-TDD" class="headerlink" title="测试驱动设计 TDD"></a>测试驱动设计 TDD</h5><p>TDD：在编写代码之前先编写测试代码</p>
+<p>只是做了简单的介绍；TDD好处在于你把自己当成产品的用户，在这个角度你对代码所提供的接口有了更多的感知，从而做出更好的设计</p>
+<h5 id="测试无效参数"><a href="#测试无效参数" class="headerlink" title="测试无效参数"></a>测试无效参数</h5><p>无效参数在哪里检查呢？</p>
+<ul>
+<li>要是在系统任意部分都做检查，显然会出现重复检查的情况（违反DRY）原则且浪费精力和时间</li>
+<li>通常是采用“不让野蛮人入门”的想法，在系统的入口对参数进行检查，然后系统内部就可以信任这些数据了</li>
+</ul>
+<p>[2]: </p>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/12/23/算法-查找/" rel="next" title="">
+                <i class="fa fa-chevron-left"></i> 
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2017/02/15/unit-test-java/"
+           data-title="" data-url="https://yoursite.com/2017/02/15/unit-test-java/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/headicon.jpg"
+               alt="AaronChan" />
+          <p class="site-author-name" itemprop="name">AaronChan</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">37</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">分类</span>
+              
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/Aaron-Chan" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#categories-技术"><span class="nav-number">1.</span> <span class="nav-text">categories: 技术</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#单元测试的定义"><span class="nav-number">1.0.1.</span> <span class="nav-text">单元测试的定义</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#单元测试的内容（Right-BICEP）"><span class="nav-number">1.0.2.</span> <span class="nav-text">单元测试的内容（Right-BICEP）</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#总览"><span class="nav-number">1.0.2.1.</span> <span class="nav-text">总览</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#结果是否正确"><span class="nav-number">1.0.2.2.</span> <span class="nav-text">结果是否正确</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#边界条件"><span class="nav-number">1.0.2.3.</span> <span class="nav-text">边界条件</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#检查反向关联"><span class="nav-number">1.0.2.4.</span> <span class="nav-text">检查反向关联</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#使用其他手段来交叉检查"><span class="nav-number">1.0.2.5.</span> <span class="nav-text">使用其他手段来交叉检查</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#强制错误发生条件"><span class="nav-number">1.0.2.6.</span> <span class="nav-text">强制错误发生条件</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#性能特性"><span class="nav-number">1.0.2.7.</span> <span class="nav-text">性能特性</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#边界条件详解"><span class="nav-number">1.0.2.8.</span> <span class="nav-text">边界条件详解</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用MOCK对象"><span class="nav-number">1.0.3.</span> <span class="nav-text">使用MOCK对象</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#合适使用MOCK对象"><span class="nav-number">1.0.3.1.</span> <span class="nav-text">合适使用MOCK对象</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#MOCK步骤"><span class="nav-number">1.0.3.2.</span> <span class="nav-text">MOCK步骤</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#好的测试需要具备的品质（A-TRIP）"><span class="nav-number">1.0.4.</span> <span class="nav-text">好的测试需要具备的品质（A-TRIP）</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#自动化（Automatic）"><span class="nav-number">1.0.4.1.</span> <span class="nav-text">自动化（Automatic）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#彻底的（Thorough）"><span class="nav-number">1.0.4.2.</span> <span class="nav-text">彻底的（Thorough）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#可重复（Repeatable）"><span class="nav-number">1.0.4.3.</span> <span class="nav-text">可重复（Repeatable）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#独立的（Independent）"><span class="nav-number">1.0.4.4.</span> <span class="nav-text">独立的（Independent）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#专业的（Professional）"><span class="nav-number">1.0.4.5.</span> <span class="nav-text">专业的（Professional）</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#项目中进行测试"><span class="nav-number">1.0.5.</span> <span class="nav-text">项目中进行测试</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#测试与评审"><span class="nav-number">1.0.5.1.</span> <span class="nav-text">测试与评审</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#设计话题"><span class="nav-number">1.0.6.</span> <span class="nav-text">设计话题</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#面向测试设计"><span class="nav-number">1.0.6.1.</span> <span class="nav-text">面向测试设计</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#为测试而重构"><span class="nav-number">1.0.6.2.</span> <span class="nav-text">为测试而重构</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#测试类的不变性"><span class="nav-number">1.0.6.3.</span> <span class="nav-text">测试类的不变性</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#测试驱动设计-TDD"><span class="nav-number">1.0.6.4.</span> <span class="nav-text">测试驱动设计 TDD</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#测试无效参数"><span class="nav-number">1.0.6.5.</span> <span class="nav-text">测试无效参数</span></a></li></ol></li></ol></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">AaronChan</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"aaronchan"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+  
+
+
+
+
+
+
+  
+  
+  
+
+  
+
+  
+
+</body>
+</html>
